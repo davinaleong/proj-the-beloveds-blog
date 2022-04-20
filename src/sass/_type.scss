@@ -1,0 +1,32 @@
+body {
+  font-family: family("body");
+  font-size: size("root");
+}
+
+.site-title {
+  font-family: family("heading");
+  font-size: size("site-title");
+  font-weight: weight("bold");
+}
+
+.page-title {
+  font-family: family("heading");
+  font-size: size("page-subtitle");
+  font-weight: weight("bold");
+}
+
+.section-title {
+  font-family: family("body");
+  font-size: size("section-title");
+  text-transform: text-transform("uppercase");
+}
+
+.post-title {
+  font-family: family("heading");
+  font-size: size("post-title");
+  font-style: style("italic");
+}
+
+.date {
+  font-size: size("date");
+}
