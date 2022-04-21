@@ -9,6 +9,7 @@ const config: GatsbyConfig = {
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-mdx",
     "gatsby-plugin-sass",
+    "gatsby-plugin-graphql-config",
     {
       resolve: 'gatsby-source-filesystem',
       options: {

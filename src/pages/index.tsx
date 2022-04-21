@@ -1,14 +1,22 @@
 import "../sass/main.scss"
 
 import * as React from "react"
+import { graphql } from "gatsby"
+
+// config
+import config from "../data/config"
 
 // layout
 import MainLayout from "../layouts/main.layout"
 
 // markup
-const IndexPage = () => {
+const IndexPage = ({ data }) => {
+  const meta = {
+    description: data.pages.data.meta_description
+  }
+
   return (
-    <MainLayout bgColor="bg-accent-1">
+    <MainLayout meta={meta} bgColor="bg-accent-1">
       <main className="main-content">
         <section className="hero-section">
           <div className="container">
@@ -84,3 +92,32 @@ const IndexPage = () => {
 }
 
 export default IndexPage
+
+export const query = graphql`
+query IndexPageQuery {
+  pages(name: "Index") {
+      data {
+          name
+          title
+          subtitle
+          text
+          meta_title
+          meta_description
+      }
+  }
+
+  featured: posts(featured: true, first: 1) {
+      data {
+          title
+          summary
+          text
+      }
+  }
+
+  posts(first: 6) {
+      data {
+          title
+      }
+  }
+}
+`

@@ -38,12 +38,16 @@ class MainLayout extends React.Component {
             title: config.meta.default.title,
             keywords: config.meta.default.keywords,
             description: config.meta.default.description
-        };
+        }
       
         if (meta && meta !== undefined) {
-            localMeta.title = meta.title;
-            localMeta.keywords = meta.keywords;
-            localMeta.description = meta.description;
+            const { title, description } = meta
+            if (title && title !== undefined) {
+                localMeta.title = title
+            }
+            if (description && description !== undefined) {
+                localMeta.description = description
+            }
         }
 
         return (

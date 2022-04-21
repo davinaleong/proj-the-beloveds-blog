@@ -20,6 +20,7 @@
     "@mdx-js/react": "^1.6.22",
     "dayjs": "^1.11.1",
     "gatsby": "^4.12.1",
+    "gatsby-plugin-graphql-config": "^1.12.1",
     "gatsby-plugin-manifest": "^4.12.1",
     "gatsby-plugin-mdx": "^3.12.1",
     "gatsby-plugin-react-helmet": "^5.12.1",
