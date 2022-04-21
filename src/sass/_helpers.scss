@@ -1,0 +1,172 @@
+/// Colors
+@each $key,
+$value in $colors {
+    .color-#{$key} {
+        color: $value;
+    }
+
+    a.color-#{$key}:hover, a.color-#{$key}:focus {
+        color: $value;
+    }
+
+    .bg-#{$key} {
+        background-color: $value;
+    }
+
+    .border-#{key} {
+        border-top: thin solid $value;
+        border-bottom: thin solid $value;
+        border-left: thin solid $value;
+        border-right: thin solid $value;
+    }
+
+    .border-top-#{key} {
+        border-top: thin solid $value;
+    }
+
+    .border-bottom-#{key} {
+        border-bottom: thin solid $value;
+    }
+
+    .border-left-#{key} {
+        border-left: thin solid $value;
+    }
+
+    .border-right-#{key} {
+        border-right: thin solid $value;
+    }
+}
+
+/// Font Families
+@each $key,
+$value in $families {
+    .family-#{$key} {
+        font-family: $value;
+    }
+}
+
+/// Font Sizes
+@each $key,
+$value in $sizes {
+    .size-#{$key} {
+        font-size: $value;
+    }
+}
+
+/// Font Weights
+@each $key,
+$value in $weights {
+    .weight-#{$key} {
+        font-weight: $value;
+    }
+}
+
+/// Font Styles
+@each $key,
+$value in $styles {
+    .style-#{$key} {
+        font-style: $value;
+    }
+}
+
+/// Text Align
+@each $key,
+$value in $text-alignments {
+    .align-#{$key} {
+        text-align: $value;
+    }
+}
+
+/// Text Transform
+@each $key,
+$value in $text-transforms {
+    .transform-#{$key} {
+        text-transform: $value;
+    }
+}
+
+/// Text Transform
+@each $key,
+$value in $text-decorations {
+    .decoration-#{$key} {
+        text-decoration: $value;
+    }
+}
+
+/// Spacing
+@each $key,
+$value in $spacers {
+    .m-#{$key} {
+        margin-top: $value;
+        margin-bottom: $value;
+        margin-left: $value;
+        margin-right: $value;
+    }
+
+    .mx-#{$key} {
+        margin-left: $value;
+        margin-right: $value;
+    }
+
+    .my-#{$key} {
+        margin-top: $value;
+        margin-bottom: $value;
+    }
+
+    .mt-#{$key} {
+        margin-top: $value;
+    }
+
+    .mb-#{$key} {
+        margin-bottom: $value;
+    }
+
+    .ml-#{$key} {
+        margin-left: $value;
+    }
+
+    .mr-#{$key} {
+        margin-right: $value;
+    }
+
+    .p-#{$key} {
+        padding-top: $value;
+        padding-bottom: $value;
+        padding-left: $value;
+        padding-right: $value;
+    }
+    
+    .px-#{$key} {
+        padding-left: $value;
+        padding-right: $value;
+    }
+    
+    .py-#{$key} {
+        padding-top: $value;
+        padding-bottom: $value;
+    }
+    
+    .pt-#{$key} {
+        padding-top: $value;
+    }
+    
+    .pb-#{$key} {
+        padding-bottom: $value;
+    }
+    
+    .pl-#{$key} {
+        padding-left: $value;
+    }
+    
+    .pr-#{$key} {
+        padding-right: $value;
+    }
+}
+
+/// Box Shadows
+@each $key,
+$value in $box-shadows {
+    .shadow-#{$key} {
+        box-shadow: $value;
+    }
+}

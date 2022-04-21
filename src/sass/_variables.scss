@@ -7,8 +7,9 @@ Variables
   - Font Sizes
   - Font Weights
   - Font Styles
-  - Text Alignments
-  - Text Transforms
+  - Text Alignment
+  - Text Transform
+  - Text Decoration
   - Spacers
   - Breakpoints
   - Box Shadows
@@ -23,6 +24,7 @@ $colors: (
   "primary-light": #c1e2f1,
   "accent-1": #b00019,
   "accent-2": #b0a912,
+  "transparent": transparent,
 );
 
 @function color($key) {
@@ -46,12 +48,13 @@ $families: (
 /// Font Sizes
 $sizes: (
   "root": 16px,
-  "base": clamp(1rem, 1rem + 1vw, 3rem),
-  "site-title": clamp(2.25rem, 3rem + 1vw, 10rem),
-  "page-title": clamp(2.25rem, 2rem + 1vw, 7rem),
-  "section-title": clamp(0.875rem, 1rem + 1vw, 1rem),
-  "post-title": clamp(1.5rem, 1rem + 1vw, 5rem),
-  "date": clamp(0.75rem, 1rem + 1vw, 1.75rem),
+  "base": clamp(1rem, 0.5rem + 1vw, 1.5rem),
+  "site-title": clamp(2.25rem, 2rem + 1vw, 7rem),
+  "hero-title": clamp(2.25rem, 1rem + 1vw, 5rem),
+  "section-title": clamp(0.875rem, 0.5rem + 1vw, 1rem),
+  "post-title": clamp(1.5rem, 0.5rem + 1vw, 5rem),
+  "small": clamp(0.75rem, 0.5rem + 1vw, 1.25rem),
+  "folder": clamp(1.5rem, 0.5rem + 1vw, 3rem),
 );
 
 @function size($key) {
@@ -127,16 +130,30 @@ $text-transforms: (
   @return $value;
 }
 
+/// Text Decoration
+$text-decorations: (
+  "none": none,
+  "underline": underline,
+);
+
+@function text-decoration($key) {
+  $value: map-get($text-decorations, $key);
+  @debug $value;
+  @return $value;
+}
+
 /// Spacers
 $unit: 1rem;
 $spacers: (
+  "0": $unit * 0,
   "1": $unit * 0.25,
   "2": $unit * 0.5,
   "3": $unit * 1,
-  "4": $unit * 1.25,
-  "5": $unit * 2,
-  "6": $unit * 3,
-  "7": $unit * 5,
+  "4": $unit * 3,
+  "5": $unit * 5,
+  "6": $unit * 8,
+  "7": $unit * 12,
+  "auto": auto,
 );
 
 @function spacer($key) {
@@ -147,11 +164,11 @@ $spacers: (
 
 /// Breakpoints
 $breakpoints: (
-  "phone": 300px,
-  "phone-l": 600px,
-  "tablet": 900px,
-  "desktop": 1200px,
-  "desktop-l": 1600px,
+  "phone": 18.75rem,
+  "phone-l": 37.5rem,
+  "tablet": 56.25rem,
+  "desktop": 75rem,
+  "desktop-l": 100rem,
 );
 
 @function breakpoint($key) {
@@ -162,7 +179,7 @@ $breakpoints: (
 
 /// Box Shadows
 $box-shadows: (
-  "hero": 3px 3px 5px rgba(1, 1, 1, 0.3),
+  "hero": 0 5px 10px rgba(0, 0, 0, 0.5),
 );
 
 @function box-shadow($key) {
