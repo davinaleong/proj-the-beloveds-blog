@@ -12,8 +12,8 @@ const FeaturedPostComponent =  (props: any) => {
     const { post } = props
     const { title,  published_at, summary, slug } = post
 
-    const publishedAt = dayjs(published_at).format("D MMM YYYY")
-    const link = PostUrlHelper(slug)
+    const publishedAt: string = dayjs(published_at).format("D MMM YYYY")
+    const link: string = PostUrlHelper(slug)
 
     return (
         <section className="featured-section">

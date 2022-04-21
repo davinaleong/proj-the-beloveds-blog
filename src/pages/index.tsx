@@ -12,17 +12,23 @@ import MainLayout from "../layouts/main.layout"
 // components
 import HeroComponent from "../components/hero.components"
 import FeaturedPostComponent from "../components/featured-post.component"
+import LatestPostsComponent from "../components/latest-posts.component"
 
 // markup
 const IndexPage = () => {
-  const title = "The Beloved's Blog"
-  const subtitle = "So you also are complete through your union with Christ, who is the head over every ruler and authority.\n\rCol 2:10 NLT"
+  const title: String = "The Beloved's Blog"
+  const subtitle: String = "So you also are complete through your union with Christ, who is the head over every ruler and authority.\n\rCol 2:10 NLT"
 
-  const post = {
+  const post: Object = {
     title: "Lorem Ipsum",
     published_at: "2022-04-07",
     summary: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas nihil ipsum aspernatur, voluptates vitae fuga, veritatis est ex quis exercitationem quod, quidem amet odit mollitia ad asperiores qui. Ab impedit nulla, cumque corrupti doloribus hic. Ducimus reprehenderit illo odit nemo commodi similique vel. Tempora, minima. Quo corrupti totam non&hellip;",
     slug: "lorem-ipsum"
+  }
+
+  const posts: Object[] = []
+  for(let i = 0; i < 6; i++) {
+    posts.push(post)
   }
 
   return (
@@ -32,43 +38,7 @@ const IndexPage = () => {
 
         <FeaturedPostComponent post={ post } />
 
-        <section className="content-section bg-primary-light">
-          <div className="container">
-            <header className="section-header">
-              <h2 className="section-title">Latest Posts</h2>
-            </header>
-
-            <div className="post-list">
-              <article className="post-item">
-                <h3 className="post-title">Lorem Ipsum</h3>
-                <p className="post-date">7 Apr 2022</p>
-                <a href="/post" className="btn btn-link">View Post</a>
-              </article>
-
-              <article className="post-item">
-                <h3 className="post-title">Lorem Ipsum</h3>
-                <p className="post-date">7 Apr 2022</p>
-                <a href="/post" className="btn btn-link">View Post</a>
-              </article>
-
-              <article className="post-item">
-                <h3 className="post-title">Lorem Ipsum</h3>
-                <p className="post-date">7 Apr 2022</p>
-                <a href="/post" className="btn btn-link">View Post</a>
-              </article>
-
-              <article className="post-item">
-                <h3 className="post-title">Lorem Ipsum</h3>
-                <p className="post-date">7 Apr 2022</p>
-                <a href="/post" className="btn btn-link">View Post</a>
-              </article>
-
-              <div className="btn-container align-center">
-                <a href="/archive" className="btn btn-primary">View All</a>
-              </div>
-            </div>
-          </div>
-        </section>
+        <LatestPostsComponent posts={ posts } />
       </main>
     </MainLayout>
   )
