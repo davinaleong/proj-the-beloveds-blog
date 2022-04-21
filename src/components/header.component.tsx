@@ -1,19 +1,24 @@
-import * as React from "react"
+import React, { useState } from "react"
 
 // images
 import Logo from "../images/logo.svg";
 import Xmark from "../images/xmark.svg";
 import Bars from "../images/bars.svg";
 
-const HeaderComponent = (props) => {
-    const { toggleHeader } = props;
+const HeaderComponent = () => {
+    const [expandMenu, toggleMenu] = useState(false)
+    const active = expandMenu ? 'active' : ''
+
+    const toggleHandler = () => {
+        toggleMenu(!expandMenu)
+      }
 
     return (
         <header className="main-header">
-            <nav className="main-nav">
+            <nav className={ "main-nav " + active }>
             <div className="brand-container">
                 <a href="/" className="brand">
-                <img src={ Logo } alt="Brand Logo" className="icon" /> The Beloved's Blog
+                    <img src={ Logo } alt="Brand Logo" className="icon" /> The Beloved's Blog
                 </a>
             </div>
 
@@ -27,7 +32,7 @@ const HeaderComponent = (props) => {
                 </ul>
             </div>
 
-            <button className="btn btn-collapse">
+            <button className="btn btn-collapse" onClick={ toggleHandler }>
                 <img src={ Xmark } alt="Close Menu" className="icon icon-xmark" />
                 <img src={ Bars } alt="Expand Menu" className="icon icon-bars" />
             </button>
