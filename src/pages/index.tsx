@@ -11,35 +11,26 @@ import MainLayout from "../layouts/main.layout"
 
 // components
 import HeroComponent from "../components/hero.components"
+import FeaturedPostComponent from "../components/featured-post.component"
 
 // markup
 const IndexPage = () => {
   const title = "The Beloved's Blog"
   const subtitle = "So you also are complete through your union with Christ, who is the head over every ruler and authority.\n\rCol 2:10 NLT"
 
+  const post = {
+    title: "Lorem Ipsum",
+    published_at: "2022-04-07",
+    summary: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas nihil ipsum aspernatur, voluptates vitae fuga, veritatis est ex quis exercitationem quod, quidem amet odit mollitia ad asperiores qui. Ab impedit nulla, cumque corrupti doloribus hic. Ducimus reprehenderit illo odit nemo commodi similique vel. Tempora, minima. Quo corrupti totam non&hellip;",
+    slug: "lorem-ipsum"
+  }
+
   return (
     <MainLayout bgColor="bg-accent-1">
       <main className="main-content">
         <HeroComponent title={ title } subtitle={ subtitle } />
 
-        <section className="featured-section">
-          <div className="container">
-            <header className="section-header">
-              <h2 className="section-title">Featured Post</h2>
-            </header>
-
-            <article className="featured-post">
-              <h3 className="post-title">Lorem Ipsum</h3>
-              <p className="post-date">7 Apr 2022</p>
-              <p className="post-description">
-                <strong>Lorem ipsum</strong> dolor sit amet consectetur adipisicing elit. Ut voluptas nihil ipsum aspernatur, <em>voluptates vitae fuga</em>, veritatis est ex quis exercitationem quod, <mark>quidem amet odit mollitia</mark> ad asperiores qui. Ab impedit nulla, cumque corrupti doloribus hic. Ducimus reprehenderit illo odit nemo commodi similique vel. Tempora, minima. Quo corrupti totam non&hellip;
-              </p>
-              <div className="btn-container">
-                <a href="/post" className="btn btn-primary">View Post</a>
-              </div>
-            </article>
-          </div>
-        </section>
+        <FeaturedPostComponent post={ post } />
 
         <section className="content-section bg-primary-light">
           <div className="container">

@@ -8,7 +8,7 @@ type AppProps = {
     subtitle: String
 }
 
-const HeroComponent = (props) => {
+const HeroComponent = (props: any) => {
     const { title,  subtitle } = props
     let heroSubtitle  =  null
     if (subtitle && typeof subtitle !== "undefined") {
