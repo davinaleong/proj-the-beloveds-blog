@@ -33,7 +33,7 @@ const HeaderComponent = (props) => {
             </button>
             </nav>
         </header>
-    );
+    )
 }
 
-export default HeaderComponent;
+export default HeaderComponent

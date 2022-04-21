@@ -2,16 +2,13 @@ import "../sass/main.scss"
 
 import * as React from "react"
 
-// components
-import HeaderComponent from "../components/header.component"
-import FooterComponent from "../components/footer.component"
+// layout
+import MainLayout from "../layouts/main.layout"
 
 // markup
 const IndexPage = () => {
   return (
-    <div className="bg-accent-1">
-      <HeaderComponent />
-
+    <MainLayout bgColor="bg-accent-1">
       <main className="main-content">
         <section className="hero-section">
           <div className="container">
@@ -82,9 +79,7 @@ const IndexPage = () => {
           </div>
         </section>
       </main>
-
-      <FooterComponent />
-    </div>
+    </MainLayout>
   )
 }
 
