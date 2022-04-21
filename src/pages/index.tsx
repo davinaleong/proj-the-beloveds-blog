@@ -9,26 +9,18 @@ import config from "../data/config"
 // layout
 import MainLayout from "../layouts/main.layout"
 
+// components
+import HeroComponent from "../components/hero.components"
+
 // markup
-const IndexPage = ({ data }) => {
-  const meta = {
-    description: data.pages.data.meta_description
-  }
+const IndexPage = () => {
+  const title = "The Beloved's Blog"
+  const subtitle = "So you also are complete through your union with Christ, who is the head over every ruler and authority.\n\rCol 2:10 NLT"
 
   return (
-    <MainLayout meta={meta} bgColor="bg-accent-1">
+    <MainLayout bgColor="bg-accent-1">
       <main className="main-content">
-        <section className="hero-section">
-          <div className="container">
-            <header className="section-header">
-              <h1 className="site-title">The Beloved's Blog</h1>
-              <p className="hero-subtitle">
-                So you also are complete through your union with Christ, who is the head over every ruler and authority.<br/>
-                Col 2:10 NLT
-              </p>
-            </header>
-          </div>
-        </section>
+        <HeroComponent title={ title } subtitle={ subtitle } />
 
         <section className="featured-section">
           <div className="container">
@@ -92,32 +84,3 @@ const IndexPage = ({ data }) => {
 }
 
 export default IndexPage
-
-export const query = graphql`
-query IndexPageQuery {
-  pages(name: "Index") {
-      data {
-          name
-          title
-          subtitle
-          text
-          meta_title
-          meta_description
-      }
-  }
-
-  featured: posts(featured: true, first: 1) {
-      data {
-          title
-          summary
-          text
-      }
-  }
-
-  posts(first: 6) {
-      data {
-          title
-      }
-  }
-}
-`
