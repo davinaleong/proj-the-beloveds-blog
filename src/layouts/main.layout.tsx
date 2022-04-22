@@ -9,64 +9,48 @@ import HeaderComponent from "../components/header.component"
 import FooterComponent from "../components/footer.component"
 
 type AppProps = {
+    meta: Object,
     bgColor: String,
-    expandMenu: Boolean
+    latestPost: Object
 }
 
-class MainLayout extends React.Component {
-    constructor(props) {
-        super(props)
+const MainLayout = (props: any) => {
+    const { children, meta, bgColor, latestPost } = props
 
-        this.state = {
-            expandMenu: false
+    const localMeta = {
+        author: config.meta.author,
+        siteUrl: config.meta.siteUrl,
+        title: config.meta.default.title,
+        keywords: config.meta.default.keywords,
+        description: config.meta.default.description
+    }
+    
+    if (meta && meta !== undefined) {
+        const { title, description } = meta
+        if (title && title !== undefined) {
+            localMeta.title = title
+        }
+        if (description && description !== undefined) {
+            localMeta.description = description
         }
     }
 
-    toggleMenu = (toggle: boolean) => {
-        this.setState({
-            expandMenu: toggle
-        })
-    }
+    return (
+        <div className={ bgColor }>
+            <Helmet>
+                <meta name="description" content={localMeta.description} />
+                <meta name="keywords" content={localMeta.keywords} />
+                <meta name="author" content={localMeta.author} />
+                <title>{localMeta.title}</title>
+                <link rel="canonical" href={localMeta.siteUrl} />
+            </Helmet>
+            <HeaderComponent latestPost={latestPost} />
 
-    render = () => {
-        const { children, meta, bgColor } = this.props
-        const { expandMenu } = this.state
+            { children }
 
-        const localMeta = {
-            author: config.meta.author,
-            siteUrl: config.meta.siteUrl,
-            title: config.meta.default.title,
-            keywords: config.meta.default.keywords,
-            description: config.meta.default.description
-        }
-      
-        if (meta && meta !== undefined) {
-            const { title, description } = meta
-            if (title && title !== undefined) {
-                localMeta.title = title
-            }
-            if (description && description !== undefined) {
-                localMeta.description = description
-            }
-        }
-
-        return (
-            <div className={ bgColor }>
-                <Helmet>
-                    <meta name="description" content={localMeta.description} />
-                    <meta name="keywords" content={localMeta.keywords} />
-                    <meta name="author" content={localMeta.author} />
-                    <title>{localMeta.title}</title>
-                    <link rel="canonical" href={localMeta.siteUrl} />
-                </Helmet>
-                <HeaderComponent expandMenu={expandMenu} />
-
-                { children }
-
-                <FooterComponent />
-            </div>
-        )
-    }
+            <FooterComponent />
+        </div>
+    )
 }
 
 export default MainLayout

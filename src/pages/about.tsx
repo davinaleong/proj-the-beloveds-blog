@@ -19,19 +19,22 @@ type AppProp = {
 
 // markup
 const AboutPage = ({ data }) => {
-    const { pages } = data.cms
+    const { pages, posts } = data.cms
+
+    const latestPost = posts.data.length > 0 ? posts.data[0] : {}
+
     const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
+    const { title, text, meta_title, meta_description } = pageData
     const meta: Object = {
-        title: `${config.meta.default.title} - ${pageData.title}`,
-        description: pageData.meta_description
+        title: `${config.meta.default.title} - ${meta_title}`,
+        description: meta_description
     }
-    const title: string =  pageData.title
 
     return (
-        <MainLayout bgColor="bg-primary-light" meta={ meta }>
+        <MainLayout bgColor="bg-primary-light" meta={ meta } latestPost={ latestPost }>
             <main className="main-content">
                 <HeroComponent title={ title } />
-                <ContentComponent text={ pageData.text } />
+                <ContentComponent text={ text } />
             </main>
         </MainLayout>
     )
@@ -50,6 +53,12 @@ query AboutPageQuery {
             text
             meta_title
             meta_description
+        }
+    }
+
+    posts(first: 1) {
+        data {
+            slug
         }
     }
   }

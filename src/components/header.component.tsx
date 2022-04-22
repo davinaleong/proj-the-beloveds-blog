@@ -1,11 +1,23 @@
 import React, { useState } from "react"
 
+// helpers
+import PostUrlHelper from "../helpers/post-url.helper";
+
 // images
 import Logo from "../images/logo.svg";
 import Xmark from "../images/xmark.svg";
 import Bars from "../images/bars.svg";
+import ArchiveUrlHelper from "../helpers/archive-url.helper";
 
-const HeaderComponent = () => {
+type AppProps = {
+    latestPost: Object
+}
+
+const HeaderComponent = (props: any) => {
+    const { latestPost } = props
+    const postUri = "/" + PostUrlHelper(latestPost.slug)
+    const archiveUri = "/" + ArchiveUrlHelper(1)
+
     const [expandMenu, toggleMenu] = useState(false)
     const active = expandMenu ? 'active' : ''
 
@@ -26,8 +38,8 @@ const HeaderComponent = () => {
                 <ul className="nav-links">
                 <li className="nav-item"><a href="/" className="nav-link">Home</a></li>
                 <li className="nav-item"><a href="/about" className="nav-link">About</a></li>
-                <li className="nav-item"><a href="/post" className="nav-link">Lastest Post</a></li>
-                <li className="nav-item"><a href="/archive?page=1" className="nav-link">Archive</a></li>
+                <li className="nav-item"><a href={ postUri } className="nav-link">Latest Post</a></li>
+                <li className="nav-item"><a href={ archiveUri } className="nav-link">Archive</a></li>
                 <li className="nav-item"><a href="/contact" className="nav-link">Contact</a></li>
                 </ul>
             </div>

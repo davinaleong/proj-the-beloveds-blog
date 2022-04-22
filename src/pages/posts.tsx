@@ -23,6 +23,7 @@ type AppProp = {
 const PostsPage = ({ location, data }) => {
 
   const { posts } = data.cms
+  let latestPost: Object = {}
   let postData: Object = {
     title: "",
     subtitle: "",
@@ -32,17 +33,15 @@ const PostsPage = ({ location, data }) => {
     meta_description: "",
     slug: ""
   }
-  console.log(posts.data[0])
   const params = new URLSearchParams(location.search);
   const slug: any = params.get("slug")
   if (posts.data.length > 0) {
-    postData = posts.data[0]
+    latestPost = postData = posts.data[0]
 
     if (slug) {
       postData = posts.data.filter((post: any) => post.slug == slug)[0]
     }
   }
-  console.log(slug, postData)
 
   const { title, subtitle, text, published_at, meta_title, meta_description } = postData
   const meta: Object = {
@@ -60,7 +59,7 @@ const PostsPage = ({ location, data }) => {
   }
 
   return (
-    <MainLayout bgColor={ bgColor } meta={ meta }>
+    <MainLayout bgColor={ bgColor } meta={ meta } latestPost={ latestPost }>
       <main className="main-content">
         <HeroComponent title={ title } subtitle={ publishedAt }/>
         { subtitle }

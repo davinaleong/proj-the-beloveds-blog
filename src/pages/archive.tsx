@@ -22,13 +22,15 @@ type AppProp = {
 // markup
 const ArchivePage = ({ location, data }) => {
   const { pages, featured, posts } = data.cms
-  const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
-  const meta: Object = {
-    title: `${config.meta.default.title} - ${pageData.title}`,
-    description: pageData.meta_description
-  }
 
-  const title: string = pageData.title
+  const latestPost = posts.data.length > 0 ? posts.data[0] : {}
+
+  const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
+  const { title, meta_title, meta_description } = pageData
+  const meta: Object = {
+    title: `${config.meta.default.title} - ${meta_title}`,
+    description: meta_description
+  }
 
   const featuredData = featured.data.length > 0 ? featured.data[0] : {}
 
@@ -40,7 +42,7 @@ const ArchivePage = ({ location, data }) => {
   const postData = posts.data.splice(current - 1, config.perPage)
 
   return (
-    <MainLayout bgColor="bg-accent-1" meta={ meta }>
+    <MainLayout bgColor="bg-accent-1" meta={ meta } latestPost={ latestPost }>
       <main className="main-content">
         <HeroComponent title={ title } />
 

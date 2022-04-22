@@ -18,18 +18,19 @@ type AppProp = {
 // markup
 const IndexPage = ({ data }) => {
   const { pages, featured, posts } = data.cms
-  const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
-  const meta: Object = {
-    description: pageData.meta_description
-  }
 
-  const title: string = pageData.title
-  const subtitle: string = pageData.subtitle
+  const latestPost = posts.data.length > 0 ? posts.data[0] : {}
+
+  const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
+  const { title, subtitle, meta_description } = pageData
+  const meta: Object = {
+    description: meta_description
+  }
 
   const featuredData = featured.data.length > 0 ? featured.data[0] : {}
 
   return (
-    <MainLayout bgColor="bg-accent-1" meta={ meta }>
+    <MainLayout bgColor="bg-accent-1" meta={ meta } latestPost={ latestPost }>
       <main className="main-content">
         <HeroComponent title={ title } subtitle={ subtitle } />
 
