@@ -39,7 +39,8 @@ const ArchivePage = ({ location, data }) => {
   if (current < 1) {
     current = 1
   }
-  const postData = posts.data.splice(current - 1, config.perPage)
+  const offset = (current - 1) * config.perPage
+  const postData = posts.data.splice(offset, config.perPage)
 
   return (
     <MainLayout bgColor="bg-accent-1" meta={ meta } latestPost={ latestPost }>
