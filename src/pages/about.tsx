@@ -10,7 +10,8 @@ import config from "../data/config"
 import MainLayout from "../layouts/main.layout"
 
 // components
-import HeroComponent from "../components/hero.components"
+import HeroComponent from "../components/hero.component"
+import ContentComponent from "../components/content.component"
 
 type AppProp = {
     data: any
@@ -30,6 +31,7 @@ const AboutPage = ({ data }) => {
         <MainLayout bgColor="bg-primary-light" meta={ meta }>
             <main className="main-content">
                 <HeroComponent title={ title } />
+                <ContentComponent text={ pageData.text } />
             </main>
         </MainLayout>
     )

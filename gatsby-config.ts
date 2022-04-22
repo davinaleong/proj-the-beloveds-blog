@@ -7,7 +7,6 @@ const config: GatsbyConfig = {
   },
   plugins: [
     "gatsby-plugin-react-helmet",
-    "gatsby-plugin-mdx",
     "gatsby-plugin-sass",
     {
       resolve: "gatsby-source-graphql",

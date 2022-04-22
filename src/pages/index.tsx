@@ -7,7 +7,7 @@ import { graphql } from "gatsby"
 import MainLayout from "../layouts/main.layout"
 
 // components
-import HeroComponent from "../components/hero.components"
+import HeroComponent from "../components/hero.component"
 import FeaturedPostComponent from "../components/featured-post.component"
 import LatestPostsComponent from "../components/latest-posts.component"
 
