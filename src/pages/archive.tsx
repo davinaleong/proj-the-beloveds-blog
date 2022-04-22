@@ -70,7 +70,7 @@ query ArchivePageQuery {
         }
     }
 
-    posts(first: 20) {
+    posts(first: 50) {
         data {
             title
             slug
@@ -79,7 +79,7 @@ query ArchivePageQuery {
         paginatorInfo {
           hasMorePages
           currentPage
-          total
+          count
         }
     }
   }
