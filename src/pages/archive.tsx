@@ -3,6 +3,9 @@ import "../sass/main.scss"
 import * as React from "react"
 import { graphql } from "gatsby"
 
+// config
+import config from "../data/config"
+
 // layout
 import MainLayout from "../layouts/main.layout"
 
@@ -29,6 +32,12 @@ const ArchivePage = ({ data }) => {
 
   const featuredData = featured.data.length > 0 ? featured.data[0] : {}
 
+  let current = 1
+  if (current < 1) {
+    current = 1
+  }
+  const postData = posts.data.splice(current - 1, config.perPage)
+
   return (
     <MainLayout bgColor="bg-accent-1" meta={ meta }>
       <main className="main-content">
@@ -36,9 +45,9 @@ const ArchivePage = ({ data }) => {
 
         <FeaturedPostComponent post={ featuredData } showSummary={ false } />
 
-        <PostListComponent title="All Posts" posts={ posts.data } showButton={ false } />
+        <PostListComponent title="All Posts" posts={ postData } showButton={ false } />
 
-        <PaginationComponent paginatorInfo={ posts.paginatorInfo }/>
+        <PaginationComponent current={ current } count={ posts.paginatorInfo.count }/>
       </main>
     </MainLayout>
   )
@@ -70,7 +79,7 @@ query ArchivePageQuery {
         }
     }
 
-    posts(first: 50) {
+    posts(first: 100) {
         data {
             title
             slug

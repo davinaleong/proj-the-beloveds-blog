@@ -11,14 +11,14 @@ import Right from "../images/right.svg"
 import PaginationItemComponent from "../components/pagination-item.component"
 
 type AppProps = {
-    paginatorInfo: Object
+    current: number,
+    count: number
 }
 
 const PaginationComponent = (props: any) => {
-  const { paginatorInfo } = props
+  const { current, count } = props
 
-  const pages: number = Math.ceil(paginatorInfo.count / config.perPage)
-  const current: number = paginatorInfo.currentPage
+  const pages: number = Math.ceil(count / config.perPage)
   const prev: number = current - 1
   const next: number = current + 1
 
