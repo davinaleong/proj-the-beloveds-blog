@@ -1,5 +1,5 @@
 const PostUrlHelper = (slug: String) => {
-    return `post?slug=${slug}`
+    return `posts/${slug}`
 }
 
 export default PostUrlHelper

@@ -19,7 +19,7 @@ type AppProp = {
 }
 
 // markup
-const PostPage = ({ location, data }) => {
+const PostItemTemplate = ({ data }) => {
   const { posts } = data.cms
   const postData: Object = posts.data.length > 0 ? posts.data[0] : {}
   const meta: Object = {
@@ -46,10 +46,10 @@ const PostPage = ({ location, data }) => {
   )
 }
 
-export default PostPage
+export default PostItemTemplate
 
 export const pageQuery = graphql`
-query PostPageQuery($slug: String!) {
+query PostItemQuery($slug: String!) {
   cms {
     posts(slug: $slug, first: 1) {
         data {
