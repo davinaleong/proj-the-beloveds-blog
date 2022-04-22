@@ -20,7 +20,7 @@ const LatestPostsComponent = (props: any) => {
             </header>
 
             <div className="post-list">
-                { posts.map((post: Object) => <PostItemComponent post={ post } />) }
+                { posts.map((post: Object, index: Number) => <PostItemComponent post={ post } key={ "pi" + index } />) }
 
                 <div className="btn-container align-center">
                     <LinkButtonComponent label="View All" link="/archive"/>

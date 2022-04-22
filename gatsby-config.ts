@@ -9,7 +9,17 @@ const config: GatsbyConfig = {
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-mdx",
     "gatsby-plugin-sass",
-    "gatsby-plugin-graphql-config",
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        // This type will contain remote schema Query type
+        typeName: "SWAPI",
+        // This is the field under which it's accessible
+        fieldName: "cms",
+        // URL to query from
+        url: "http://davinas-cms.herokuapp.com/graphql",
+      },
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {

@@ -14,10 +14,17 @@ import HeroComponent from "../components/hero.components"
 import FeaturedPostComponent from "../components/featured-post.component"
 import LatestPostsComponent from "../components/latest-posts.component"
 
+type AppProp = {
+  data: any
+}
+
 // markup
-const IndexPage = () => {
-  const title: String = "The Beloved's Blog"
-  const subtitle: String = "So you also are complete through your union with Christ, who is the head over every ruler and authority.\n\rCol 2:10 NLT"
+const IndexPage = ({ data }) => {
+  //const { pages, featured, posts } = data
+  console.log(data)
+
+  const title: string = "The Beloved's Blog"
+  const subtitle: string = "So you also are complete through your union with Christ, who is the head over every ruler and authority.\n\rCol 2:10 NLT"
 
   const post: Object = {
     title: "Lorem Ipsum",
@@ -48,29 +55,31 @@ export default IndexPage
 
 export const pageQuery = graphql`
 query IndexPageQuery {
-  pages(name: "Index") {
-      data {
-          name
-          title
-          subtitle
-          text
-          meta_title
-          meta_description
-      }
-  }
+  cms {
+    pages(name: "Index") {
+        data {
+            name
+            title
+            subtitle
+            text
+            meta_title
+            meta_description
+        }
+    }
 
-  featured: posts(featured: true, first: 1) {
-      data {
-          title
-          summary
-          text
-      }
-  }
+    featured: posts(featured: true, first: 1) {
+        data {
+            title
+            summary
+            text
+        }
+    }
 
-  posts(first: 6) {
-      data {
-          title
-      }
+    posts(first: 6) {
+        data {
+            title
+        }
+    }
   }
 }
 `

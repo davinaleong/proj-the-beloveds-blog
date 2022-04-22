@@ -9,7 +9,7 @@ type AppProps = {
 }
 
 const PostItemComponent  = (props: any) => {
-    const { post } = props
+    const { post, index } = props
     const { title,  published_at, slug } = post
 
     const publishedAt: string = dayjs(published_at).format("D MMM YYYY")
