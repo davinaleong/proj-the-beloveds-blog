@@ -3,9 +3,6 @@ import "../sass/main.scss"
 import * as React from "react"
 import { graphql } from "gatsby"
 
-// config
-import config from "../data/config"
-
 // layout
 import MainLayout from "../layouts/main.layout"
 
@@ -21,7 +18,10 @@ type AppProp = {
 // markup
 const IndexPage = ({ data }) => {
   const { pages, featured, posts } = data.cms
-  const pageData = pages.data.length > 0 ? pages.data[0] : {}
+  const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
+  const meta: Object = {
+    description: pageData.meta_description
+  }
 
   const title: string = pageData.title
   const subtitle: string = pageData.subtitle
@@ -29,7 +29,7 @@ const IndexPage = ({ data }) => {
   const featuredData = featured.data.length > 0 ? featured.data[0] : {}
 
   return (
-    <MainLayout bgColor="bg-accent-1">
+    <MainLayout bgColor="bg-accent-1" meta={ meta }>
       <main className="main-content">
         <HeroComponent title={ title } subtitle={ subtitle } />
 
