@@ -30,7 +30,7 @@ const PaginationComponent = (props: any) => {
   }
 
   const paginationItems = []
-  if (prev > 1) {
+  if (current > 1) {
     paginationItems.push({
       label: "",
       page: prev,
@@ -51,7 +51,7 @@ const PaginationComponent = (props: any) => {
     })
   }
 
-  if (next < pages) {
+  if (current < pages) {
     paginationItems.push({
       label: "",
       page: next,
