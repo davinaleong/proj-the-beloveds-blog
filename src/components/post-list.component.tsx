@@ -16,7 +16,7 @@ const PostListComponent = (props: any) => {
     if (showButton) {
       button = (
         <div className="btn-container align-center">
-          <LinkButtonComponent label="View All" link="/archive"/>
+          <LinkButtonComponent label="View All" link="/archive?page=1"/>
         </div>
       )
     }

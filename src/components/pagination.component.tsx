@@ -19,11 +19,18 @@ const PaginationComponent = (props: any) => {
   const { current, count } = props
 
   const pages: number = Math.ceil(count / config.perPage)
-  const prev: number = current - 1
-  const next: number = current + 1
+  let prev: number = parseInt(current) - 1
+  if (prev < 1) {
+    prev = 1
+  }
+
+  let next: number = parseInt(current) + 1
+  if (next > pages) {
+    next = pages
+  }
 
   const paginationItems = []
-  if (prev > 0) {
+  if (prev > 1) {
     paginationItems.push({
       label: "",
       page: prev,
@@ -53,51 +60,6 @@ const PaginationComponent = (props: any) => {
       active: false
     })
   }
-
-  // const paginationItems = [
-  //   {
-  //     label: "",
-  //     page: 1,
-  //     image: Left,
-  //     isImage: true,
-  //     active: false
-  //   },
-  //   {
-  //     label: "1",
-  //     page: 1,
-  //     image: null,
-  //     isImage: false,
-  //     active: false
-  //   },
-  //   {
-  //     label: "2",
-  //     page: 2,
-  //     image: null,
-  //     isImage: false,
-  //     active: true
-  //   },
-  //   {
-  //     label: "3",
-  //     page: 3,
-  //     image: null,
-  //     isImage: false,
-  //     active: false
-  //   },
-  //   {
-  //     label: "4",
-  //     page: 4,
-  //     image: null,
-  //     isImage: false,
-  //     active: false
-  //   },
-  //   {
-  //     label: "",
-  //     page: 4,
-  //     image: Right,
-  //     isImage: true,
-  //     active: false
-  //   },
-  // ]
 
   return (
     <section className="pagination-section bg-primary-light">

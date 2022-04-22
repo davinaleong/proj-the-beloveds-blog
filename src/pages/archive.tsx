@@ -1,6 +1,7 @@
 import "../sass/main.scss"
 
 import * as React from "react"
+import { useSearchParams } from 'react-router-dom'
 import { graphql } from "gatsby"
 
 // config
@@ -20,7 +21,7 @@ type AppProp = {
 }
 
 // markup
-const ArchivePage = ({ data }) => {
+const ArchivePage = ({ location, data }) => {
   const { pages, featured, posts } = data.cms
   const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
   const meta: Object = {
@@ -32,7 +33,8 @@ const ArchivePage = ({ data }) => {
 
   const featuredData = featured.data.length > 0 ? featured.data[0] : {}
 
-  let current = 1
+  const params = new URLSearchParams(location.search);
+  let current: any = params.get("page")
   if (current < 1) {
     current = 1
   }
@@ -79,7 +81,7 @@ query ArchivePageQuery {
         }
     }
 
-    posts(first: 100) {
+    posts(first: 150) {
         data {
             title
             slug

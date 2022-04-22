@@ -27,7 +27,7 @@ const HeaderComponent = () => {
                 <li className="nav-item"><a href="/" className="nav-link">Home</a></li>
                 <li className="nav-item"><a href="/about" className="nav-link">About</a></li>
                 <li className="nav-item"><a href="/post" className="nav-link">Lastest Post</a></li>
-                <li className="nav-item"><a href="/archive" className="nav-link">Archive</a></li>
+                <li className="nav-item"><a href="/archive?page=1" className="nav-link">Archive</a></li>
                 <li className="nav-item"><a href="/contact" className="nav-link">Contact</a></li>
                 </ul>
             </div>
