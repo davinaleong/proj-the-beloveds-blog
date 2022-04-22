@@ -9,7 +9,7 @@ import MainLayout from "../layouts/main.layout"
 // components
 import HeroComponent from "../components/hero.component"
 import FeaturedPostComponent from "../components/featured-post.component"
-import LatestPostsComponent from "../components/latest-posts.component"
+import LatestPostsComponent from "../components/post-list.component"
 
 type AppProp = {
   data: any
@@ -35,7 +35,7 @@ const IndexPage = ({ data }) => {
 
         <FeaturedPostComponent post={ featuredData } showSummary={ true } />
 
-        <LatestPostsComponent posts={ posts.data } />
+        <LatestPostsComponent title="Latest Posts" posts={ posts.data } showButton="true" />
       </main>
     </MainLayout>
   )

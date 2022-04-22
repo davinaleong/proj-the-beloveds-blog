@@ -3,50 +3,43 @@ import "../sass/main.scss"
 import * as React from "react"
 import { graphql } from "gatsby"
 
-// config
-import config from "../data/config"
-
 // layout
 import MainLayout from "../layouts/main.layout"
 
 // components
 import HeroComponent from "../components/hero.component"
 import FeaturedPostComponent from "../components/featured-post.component"
+import PostListComponent from "../components/post-list.component"
 
 type AppProp = {
-    data: any
+  data: any
 }
 
-class ArchivePage extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      posts: []
-    }
+// markup
+const ArchivePage = ({ data }) => {
+  const { pages, featured, posts } = data.cms
+  const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
+  const meta: Object = {
+    description: pageData.meta_description
   }
 
-  render = () => {
-    const { pages, featured, posts } = this.props.data.cms
-    const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
-    const meta: Object = {
-        title: `${config.meta.default.title} - ${pageData.title}`,
-        description: pageData.meta_description
-    }
-    const title: string =  pageData.title
+  const title: string = pageData.title
+  const subtitle: string = pageData.subtitle
 
-    const featuredData = featured.data.length > 0 ? featured.data[0] : {}
+  const featuredData = featured.data.length > 0 ? featured.data[0] : {}
+  console.log(posts.data)
 
-    return (
-      <MainLayout bgColor="bg-accent-1" meta={ meta }>
-        <main className="main-content">
-          <HeroComponent title={ title } />
+  return (
+    <MainLayout bgColor="bg-accent-1" meta={ meta }>
+      <main className="main-content">
+        <HeroComponent title={ title } subtitle={ subtitle } />
 
-          <FeaturedPostComponent post={ featuredData } showSummary={ false } />
-        </main>
-      </MainLayout>
-    )
-  }
+        <FeaturedPostComponent post={ featuredData } showSummary={ false } />
+
+        <PostListComponent title="All Posts" posts={ posts.data } showButton={ false } />
+      </main>
+    </MainLayout>
+  )
 }
 
 export default ArchivePage

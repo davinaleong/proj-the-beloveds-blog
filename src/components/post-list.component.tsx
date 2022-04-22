@@ -1,34 +1,41 @@
 import * as React from "react"
-import dayjs from "dayjs"
 
 // components
 import PostItemComponent from "./post-item.component"
 import LinkButtonComponent from "./link-button.component"
 
 type AppProps = {
-    posts: Object[]
+    title: string,
+    posts: Object[],
+    showButton: boolean
 }
 
-const LatestPostsComponent = (props: any) => {
-    const { posts } = props
+const PostListComponent = (props: any) => {
+    const { title, posts, showButton } = props
+    let button: any = null
+    if (showButton) {
+      button = (
+        <div className="btn-container align-center">
+          <LinkButtonComponent label="View All" link="/archive"/>
+        </div>
+      )
+    }
 
     return (
         <section className="content-section bg-primary-light">
           <div className="container">
             <header className="section-header">
-              <h2 className="section-title">Latest Posts</h2>
+              <h2 className="section-title">{ title }</h2>
             </header>
 
             <div className="post-list">
                 { posts.map((post: Object, index: Number) => <PostItemComponent post={ post } key={ "pi" + index } />) }
 
-                <div className="btn-container align-center">
-                    <LinkButtonComponent label="View All" link="/archive"/>
-                </div>
+                { button }
             </div>
           </div>
         </section>
     )
 }
 
-export default LatestPostsComponent
+export default PostListComponent
