@@ -46,7 +46,12 @@ main {
   @extend .py-4;
   min-height: calc(100vh - 172px);
 
-  p {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6, p {
     @extend .mb-2;
   }
 }
