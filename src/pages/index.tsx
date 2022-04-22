@@ -45,3 +45,32 @@ const IndexPage = () => {
 }
 
 export default IndexPage
+
+export const pageQuery = graphql`
+query IndexPageQuery {
+  pages(name: "Index") {
+      data {
+          name
+          title
+          subtitle
+          text
+          meta_title
+          meta_description
+      }
+  }
+
+  featured: posts(featured: true, first: 1) {
+      data {
+          title
+          summary
+          text
+      }
+  }
+
+  posts(first: 6) {
+      data {
+          title
+      }
+  }
+}
+`
