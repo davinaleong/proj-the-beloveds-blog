@@ -18,12 +18,7 @@ main {
 .featured-section {
   @extend .py-4;
   color: color("white");
-  cursor: pointer;
   transition: opacity 0.3 ease-in-out;
-  &:hover,
-  &:active {
-    opacity: 0.7;
-  }
 
   strong,
   b,
@@ -77,6 +72,8 @@ main {
 }
 
 .post-item {
+  @extend .pl-2;
+  @extend .pr-2;
   @extend .pb-1;
   border-bottom: thin solid color("primary");
 }

@@ -20,32 +20,22 @@ type AppProp = {
 
 // markup
 const IndexPage = ({ data }) => {
-  //const { pages, featured, posts } = data
-  console.log(data)
+  const { pages, featured, posts } = data.cms
+  const pageData = pages.data.length > 0 ? pages.data[0] : {}
 
-  const title: string = "The Beloved's Blog"
-  const subtitle: string = "So you also are complete through your union with Christ, who is the head over every ruler and authority.\n\rCol 2:10 NLT"
+  const title: string = pageData.title
+  const subtitle: string = pageData.subtitle
 
-  const post: Object = {
-    title: "Lorem Ipsum",
-    published_at: "2022-04-07",
-    summary: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas nihil ipsum aspernatur, voluptates vitae fuga, veritatis est ex quis exercitationem quod, quidem amet odit mollitia ad asperiores qui. Ab impedit nulla, cumque corrupti doloribus hic. Ducimus reprehenderit illo odit nemo commodi similique vel. Tempora, minima. Quo corrupti totam non&hellip;",
-    slug: "lorem-ipsum"
-  }
-
-  const posts: Object[] = []
-  for(let i = 0; i < 6; i++) {
-    posts.push(post)
-  }
+  const featuredData = featured.data.length > 0 ? featured.data[0] : {}
 
   return (
     <MainLayout bgColor="bg-accent-1">
       <main className="main-content">
         <HeroComponent title={ title } subtitle={ subtitle } />
 
-        <FeaturedPostComponent post={ post } />
+        <FeaturedPostComponent post={ featuredData } />
 
-        <LatestPostsComponent posts={ posts } />
+        <LatestPostsComponent posts={ posts.data } />
       </main>
     </MainLayout>
   )
