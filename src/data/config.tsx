@@ -8,7 +8,8 @@ const config = {
             description: "Davina Leong's Christian Blog",
             keywords: "Davina, Leong, Davina Leong, Blog, Christian, Testimonies, Revelations"
         }
-    }
+    },
+    perPage: 20
 }
 
 export default config

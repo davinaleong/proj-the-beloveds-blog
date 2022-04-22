@@ -10,6 +10,7 @@ import MainLayout from "../layouts/main.layout"
 import HeroComponent from "../components/hero.component"
 import FeaturedPostComponent from "../components/featured-post.component"
 import PostListComponent from "../components/post-list.component"
+import PaginationComponent from "../components/pagination.component"
 
 type AppProp = {
   data: any
@@ -27,7 +28,6 @@ const ArchivePage = ({ data }) => {
   const subtitle: string = pageData.subtitle
 
   const featuredData = featured.data.length > 0 ? featured.data[0] : {}
-  console.log(posts.data)
 
   return (
     <MainLayout bgColor="bg-accent-1" meta={ meta }>
@@ -37,6 +37,8 @@ const ArchivePage = ({ data }) => {
         <FeaturedPostComponent post={ featuredData } showSummary={ false } />
 
         <PostListComponent title="All Posts" posts={ posts.data } showButton={ false } />
+
+        <PaginationComponent paginatorInfo={ posts.paginatorInfo }/>
       </main>
     </MainLayout>
   )

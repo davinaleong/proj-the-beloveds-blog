@@ -139,7 +139,7 @@ main {
 }
 
 .pagination {
-  @extend .my-3;
+  @extend .py-3;
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
