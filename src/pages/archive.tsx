@@ -1,7 +1,6 @@
 import "../sass/main.scss"
 
 import * as React from "react"
-import { useSearchParams } from 'react-router-dom'
 import { graphql } from "gatsby"
 
 // config
@@ -25,11 +24,11 @@ const ArchivePage = ({ location, data }) => {
   const { pages, featured, posts } = data.cms
   const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
   const meta: Object = {
+    title: `${config.meta.default.title} - ${pageData.title}`,
     description: pageData.meta_description
   }
 
   const title: string = pageData.title
-  const subtitle: string = pageData.subtitle
 
   const featuredData = featured.data.length > 0 ? featured.data[0] : {}
 
@@ -43,7 +42,7 @@ const ArchivePage = ({ location, data }) => {
   return (
     <MainLayout bgColor="bg-accent-1" meta={ meta }>
       <main className="main-content">
-        <HeroComponent title={ title } subtitle={ subtitle } />
+        <HeroComponent title={ title } />
 
         <FeaturedPostComponent post={ featuredData } showSummary={ false } />
 
