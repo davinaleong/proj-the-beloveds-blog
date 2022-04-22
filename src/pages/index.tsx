@@ -60,6 +60,7 @@ query IndexPageQuery {
     featured: posts(featured: true, first: 1) {
         data {
             title
+            slug
             summary
             text
         }
@@ -68,6 +69,7 @@ query IndexPageQuery {
     posts(first: 6) {
         data {
             title
+            slug
         }
     }
   }
