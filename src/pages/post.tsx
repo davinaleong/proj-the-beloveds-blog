@@ -49,9 +49,9 @@ const PostPage = ({ location, data }) => {
 export default PostPage
 
 export const pageQuery = graphql`
-query PostPageQuery {
+query PostPageQuery($slug: String!) {
   cms {
-    posts(slug: "increased-efficiency-at-work-after-camp", first: 1) {
+    posts(slug: $slug, first: 1) {
         data {
             title
             slug
