@@ -68,11 +68,16 @@ query ArchivePageQuery {
         }
     }
 
-    posts(first: 10) {
+    posts(first: 20) {
         data {
             title
             slug
             published_at
+        }
+        paginatorInfo {
+          hasMorePages
+          currentPage
+          total
         }
     }
   }
