@@ -3,51 +3,66 @@ import "../sass/main.scss"
 import * as React from "react"
 import { graphql } from "gatsby"
 
+// config
+import config from "../data/config"
+
 // layout
 import MainLayout from "../layouts/main.layout"
 
 // components
 import HeroComponent from "../components/hero.component"
 import FeaturedPostComponent from "../components/featured-post.component"
-import LatestPostsComponent from "../components/post-list.component"
+import PostListComponent from "../components/post-list.component"
+import PaginationComponent from "../components/pagination.component"
 
 type AppProp = {
   data: any
 }
 
 // markup
-const IndexPage = ({ data }) => {
+const ArchivePage = ({ location, data }) => {
   const { pages, featured, posts } = data.cms
 
   const latestPost = posts.data.length > 0 ? posts.data[0] : {}
 
   const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
-  const { title, subtitle, meta_description } = pageData
+  const { title, meta_title, meta_description } = pageData
   const meta: Object = {
+    title: `${config.meta.default.title} - ${meta_title}`,
     description: meta_description
   }
 
   const featuredData = featured.data.length > 0 ? featured.data[0] : {}
 
+  const params = new URLSearchParams(location.search);
+  let current: any = params.get("page")
+  if (current < 1) {
+    current = 1
+  }
+  const offset = (current - 1) * config.perPage
+  const postData = posts.data.splice(offset, config.perPage)
+
   return (
     <MainLayout bgColor="bg-accent-1" meta={ meta } latestPost={ latestPost }>
       <main className="main-content">
-        <HeroComponent title={ title } subtitle={ subtitle } />
+        <HeroComponent title={ title } />
 
-        <FeaturedPostComponent post={ featuredData } showSummary={ true } />
+        <FeaturedPostComponent post={ featuredData } showSummary={ false } />
 
-        <LatestPostsComponent title="Latest Posts" posts={ posts.data } showButton="true" />
+        <PostListComponent title="All Posts" posts={ postData } showButton={ false } />
+
+        <PaginationComponent current={ current } count={ posts.paginatorInfo.count }/>
       </main>
     </MainLayout>
   )
 }
 
-export default IndexPage
+export default ArchivePage
 
 export const pageQuery = graphql`
-query IndexPageQuery {
+query ArchivePageQuery {
   cms {
-    pages(name: "Index") {
+    pages(name: "Archive") {
         data {
             name
             title
@@ -68,11 +83,16 @@ query IndexPageQuery {
         }
     }
 
-    posts(first: 6) {
+    posts(first: 150) {
         data {
             title
             slug
             published_at
+        }
+        paginatorInfo {
+          hasMorePages
+          currentPage
+          count
         }
     }
   }

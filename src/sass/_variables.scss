@@ -1,0 +1,188 @@
+@use "sass:string";
+
+/*
+Variables
+  - Colors
+  - Font Families
+  - Font Sizes
+  - Font Weights
+  - Font Styles
+  - Text Alignment
+  - Text Transform
+  - Text Decoration
+  - Spacers
+  - Breakpoints
+  - Box Shadows
+*/
+
+/// Colors
+$colors: (
+  "black": #000,
+  "white": #fff,
+  "primary": #127fb0,
+  "primary-dark": #054663,
+  "primary-light": #c1e2f1,
+  "accent-1": #b00019,
+  "accent-2": #b0a912,
+  "transparent": transparent,
+);
+
+@function color($key) {
+  $value: map-get($colors, $key);
+  @debug $value;
+  @return $value;
+}
+
+/// Font Families
+$families: (
+  "heading": "Merriweather, serif",
+  "body": "Nunito, sans-serif",
+);
+
+@function family($key) {
+  $value: map-get($families, $key);
+  @debug $value;
+  @return string.unquote($value);
+}
+
+/// Font Sizes
+$sizes: (
+  "root": 16px,
+  "base": clamp(1rem, 0.5rem + 1vw, 1.5rem),
+  "site-title": clamp(2.25rem, 2rem + 1vw, 7rem),
+  "hero-title": clamp(2.25rem, 1rem + 1vw, 5rem),
+  "section-title": clamp(0.8rem, 0.5rem + 1vw, 1.1rem),
+  "post-title": clamp(1.5rem, 0.5rem + 1vw, 5rem),
+  "small": clamp(0.75rem, 0.5rem + 1vw, 1rem),
+  "folder": clamp(1.5rem, 0.5rem + 1vw, 3rem),
+);
+
+@function size($key) {
+  $value: map-get($sizes, $key);
+  @debug $value;
+  @return $value;
+}
+
+/// Font Weights
+$weights: (
+  "100": 100,
+  "thin": 100,
+  "200": 200,
+  "extra-light": 200,
+  "300": 300,
+  "light": 300,
+  "400": 400,
+  "regular": 400,
+  "500": 500,
+  "medium": 500,
+  "600": 600,
+  "semibold": 600,
+  "700": 700,
+  "bold": 700,
+  "800": 800,
+  "extrabold": 800,
+  "900": 900,
+  "black": 900,
+);
+
+@function weight($key) {
+  $value: map-get($weights, $key);
+  @debug $value;
+  @return $value;
+}
+
+/// Font Styles
+$styles: (
+  "normal": normal,
+  "italic": italic,
+);
+
+@function style($key) {
+  $value: map-get($styles, $key);
+  @debug $value;
+  @return $value;
+}
+
+/// Text Alignment
+$text-alignments: (
+  "left": left,
+  "center": center,
+  "right": right,
+);
+
+@function text-alignment($key) {
+  $value: map-get($text-alignments, $key);
+  @debug $value;
+  @return $value;
+}
+
+/// Text Transform
+$text-transforms: (
+  "none": none,
+  "uppercase": uppercase,
+  "lowercase": lowercase,
+  "capitalize": capitalize,
+);
+
+@function text-transform($key) {
+  $value: map-get($text-transforms, $key);
+  @debug $value;
+  @return $value;
+}
+
+/// Text Decoration
+$text-decorations: (
+  "none": none,
+  "underline": underline,
+);
+
+@function text-decoration($key) {
+  $value: map-get($text-decorations, $key);
+  @debug $value;
+  @return $value;
+}
+
+/// Spacers
+$unit: 1rem;
+$spacers: (
+  "0": $unit * 0,
+  "1": $unit * 0.25,
+  "2": $unit * 0.5,
+  "3": $unit * 1,
+  "4": $unit * 3,
+  "5": $unit * 5,
+  "6": $unit * 8,
+  "7": $unit * 12,
+  "auto": auto,
+);
+
+@function spacer($key) {
+  $value: map-get($spacers, $key);
+  @debug $value;
+  @return $value;
+}
+
+/// Breakpoints
+$breakpoints: (
+  "phone": 18.75rem,
+  "phone-l": 37.5rem,
+  "tablet": 56.25rem,
+  "desktop": 75rem,
+  "desktop-l": 100rem,
+);
+
+@function breakpoint($key) {
+  $value: map-get($breakpoints, $key);
+  @debug $value;
+  @return $value;
+}
+
+/// Box Shadows
+$box-shadows: (
+  "hero": 0 5px 10px rgba(0, 0, 0, 0.5),
+);
+
+@function box-shadow($key) {
+  $value: map-get($box-shadows, $key);
+  @return $value;
+}

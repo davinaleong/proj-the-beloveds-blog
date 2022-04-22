@@ -7,8 +7,18 @@ const config: GatsbyConfig = {
   },
   plugins: [
     "gatsby-plugin-react-helmet",
-    "gatsby-plugin-mdx",
     "gatsby-plugin-sass",
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        // This type will contain remote schema Query type
+        typeName: "SWAPI",
+        // This is the field under which it's accessible
+        fieldName: "cms",
+        // URL to query from
+        url: "http://davinas-cms.herokuapp.com/graphql",
+      },
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -16,7 +26,20 @@ const config: GatsbyConfig = {
         "path": "./src/pages/"
       },
       __key: "pages"
-    }
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: "GatsbyJS",
+        short_name: "GatsbyJS",
+        start_url: "/",
+        background_color: "#6b37bf",
+        theme_color: "#6b37bf",
+        display: "standalone",
+        icon: "src/images/icon.png",
+        crossOrigin: `use-credentials`,
+      },
+    },
   ]
 };
 

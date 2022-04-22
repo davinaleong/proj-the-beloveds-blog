@@ -1,0 +1,208 @@
+main {
+  padding-top: 36px;
+  min-height: calc(100vh - 36px);
+}
+
+.hero-section {
+  @extend .py-4;
+  @extend .mb-3;
+  @extend .shadow-hero;
+
+  color: color("white");
+  background-color: color("primary-dark");
+  text-align: text-alignment("center");
+  background-image: linear-gradient(color("primary-dark"), color("primary"));
+  border-radius: 0 0 30% 30%;
+}
+
+.featured-section {
+  @extend .py-4;
+  color: color("white");
+  transition: opacity 0.3 ease-in-out;
+
+  strong,
+  b,
+  em,
+  i,
+  code {
+    color: color("primary-dark");
+  }
+
+  a {
+    color: color("primary-dark");
+
+    &:hover,
+    &:focus {
+      color: darken(color("primary"), 5%);
+    }
+  }
+}
+
+.btn-container {
+  @extend .mt-3;
+}
+
+.content-section {
+  @extend .py-4;
+  min-height: calc(100vh - 172px);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6, p {
+    @extend .mb-3;
+  }
+}
+
+.post-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: spacer("4");
+  cursor: pointer;
+  transition: opacity 0.3 ease-in-out;
+  &:hover,
+  &:active {
+    opacity: 0.7;
+  }
+
+  & > .post-item {
+    width: 100%;
+  }
+
+  & > .btn-container {
+    width: 100%;
+  }
+}
+
+.post-item {
+  @extend .pl-2;
+  @extend .pr-2;
+  @extend .pb-1;
+  border-bottom: thin solid color("primary");
+}
+
+.verse-section {
+  @extend .py-4;
+  color: color("white");
+
+  strong,
+  b,
+  em,
+  i,
+  code {
+    color: color("primary-dark");
+  }
+
+  a {
+    color: color("primary-dark");
+
+    &:hover,
+    &:focus {
+      color: darken(color("primary"), 5%);
+    }
+  }
+}
+
+.folder-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: spacer("4");
+
+  & > * {
+    width: calc(50% - spacer("4"));
+  }
+}
+
+.folder-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: text-decoration("none");
+  color: color("white");
+  font-size: size("folder");
+  aspect-ratio: 1 / 1;
+  background-color: color("transparent");
+  background-image: url("/public/assets/folder.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  @extend .p-2;
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover,
+  &:active {
+    color: color("white");
+    opacity: 0.7;
+  }
+}
+
+.pagination {
+  @extend .py-3;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: spacer("2");
+  max-width: 100%;
+}
+
+.pagination-link {
+  @extend .p-2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: text-decoration("none");
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  color: color("primary");
+  background-color: color("transparent");
+  transition: all 0.3s ease-in-out;
+  &:hover,
+  &:active,
+  &.active {
+    color: color("white");
+    background-color: color("primary");
+  }
+}
+
+.pagination-link-arrow {
+  display: block;
+  width: 1rem;
+  transition: opacity 0.3s ease-in-out;
+  &:hover,
+  &:active,
+  &.active {
+    opacity: 0.7;
+  }
+
+  & > img {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: breakpoint("tablet")) {
+  .post-list > .post-item {
+    width: calc(50% - spacer("4"));
+  }
+
+  .folder-list > * {
+    width: calc(33% - spacer("4"));
+  }
+}
+
+@media screen and (min-width: breakpoint("desktop")) {
+  .folder-list > * {
+    width: calc(25% - spacer("4"));
+  }
+}
+
+@media screen and (min-width: breakpoint("desktop-l")) {
+  .folder-list > * {
+    width: calc(20% - spacer("4"));
+  }
+}

@@ -1,0 +1,70 @@
+body {
+  font-family: family("body");
+  font-size: size("root");
+}
+
+a {
+  color: color("accent-1");
+  text-decoration: text-decoration("underline");
+  transition: color 0.3s ease-in-out;
+
+  &:hover,
+  &:focus {
+    color: darken(color("accent-1"), 5%);
+  }
+}
+
+.site-title {
+  font-family: family("heading");
+  font-size: size("site-title");
+  font-weight: weight("bold");
+  font-weight: weight("black");
+  @extend .mb-2;
+}
+
+.hero-subtitle {
+  font-style: style("italic");
+}
+
+.hero-title {
+  font-family: family("heading");
+  font-size: size("hero-title");
+  font-weight: weight("bold");
+}
+
+.section-title {
+  font-family: family("body");
+  font-size: size("section-title");
+  font-weight: weight("light");
+  text-transform: text-transform("uppercase");
+  margin-bottom: spacer("2");
+}
+
+.post-title {
+  font-family: family("heading");
+  font-size: size("post-title");
+  margin-bottom: spacer("1");
+}
+
+.post-date {
+  font-size: size("small");
+  margin-bottom: spacer("2");
+}
+
+.name {
+  font-family: family("heading");
+  font-size: size("hero-title");
+  font-weight: weight("black");
+}
+
+strong,
+b,
+em,
+i,
+code {
+  color: color("accent-1");
+}
+
+mark {
+  background-color: color("accent-2");
+}

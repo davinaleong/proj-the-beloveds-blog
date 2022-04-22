@@ -1,0 +1,12 @@
+.main-footer {
+  color: color("white");
+  background-color: color("primary-dark");
+  @extend .py-2;
+  @extend .px-3;
+}
+
+.copyright {
+  @extend .size-small;
+  @extend .style-italic;
+  @extend .align-center;
+}
