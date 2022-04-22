@@ -1,6 +1,7 @@
 import "../sass/main.scss"
 
 import * as React from "react"
+import dayjs from "dayjs"
 import { graphql } from "gatsby"
 
 // config
@@ -20,15 +21,38 @@ type AppProp = {
 
 // markup
 const PostsPage = ({ location, data }) => {
-  const { posts } = data.cms
-  const postData: Object = posts.data.length > 0 ? posts.data[0] : {}
-  const meta: Object = {
-    title: `${config.meta.default.title} - ${postData.title}`,
-    description: postData.meta_description
-  }
 
-  const { title, subtitle, text } = postData
+  const { posts } = data.cms
+  let postData: Object = {
+    title: "",
+    subtitle: "",
+    text: "",
+    published_at: "",
+    meta_title: "",
+    meta_description: "",
+    slug: ""
+  }
+  console.log(posts.data[0])
+  const params = new URLSearchParams(location.search);
+  const slug: any = params.get("slug")
+  if (posts.data.length > 0) {
+    postData = posts.data[0]
+
+    if (slug) {
+      postData = posts.data.filter((post: any) => post.slug == slug)[0]
+    }
+  }
+  console.log(slug, postData)
+
+  const { title, subtitle, text, published_at, meta_title, meta_description } = postData
+  const meta: Object = {
+    title: `${config.meta.default.title} - ${meta_title}`,
+    description: meta_description
+  }
+  
   let bgColor = "bg-primary-light"
+  const publishedAt: string = dayjs(published_at).format("D MMM YYYY")
+
   let verseElement = null
   if (subtitle) {
     bgColor = "bg-accent-1"
@@ -38,7 +62,7 @@ const PostsPage = ({ location, data }) => {
   return (
     <MainLayout bgColor={ bgColor } meta={ meta }>
       <main className="main-content">
-        <HeroComponent title={ title }/>
+        <HeroComponent title={ title } subtitle={ publishedAt }/>
         { subtitle }
         <ContentComponent text={ text } />
       </main>
@@ -49,17 +73,15 @@ const PostsPage = ({ location, data }) => {
 export default PostsPage
 
 export const pageQuery = graphql`
-query PostsPageQuery($slug: String!) {
+query PostsPageQuery {
   cms {
-    posts(slug: $slug, first: 1) {
+    posts(first: 150) {
         data {
             title
-            slug
-            summary
+            subtitle
             text
+            slug
             published_at
-            meta_title
-            meta_description
         }
     }
   }
