@@ -33,7 +33,7 @@ const IndexPage = ({ data }) => {
       <main className="main-content">
         <HeroComponent title={ title } subtitle={ subtitle } />
 
-        <FeaturedPostComponent post={ featuredData } />
+        <FeaturedPostComponent post={ featuredData } showSummary={ true } />
 
         <LatestPostsComponent posts={ posts.data } />
       </main>
@@ -63,6 +63,7 @@ query IndexPageQuery {
             slug
             summary
             text
+            published_at
         }
     }
 
@@ -70,6 +71,7 @@ query IndexPageQuery {
         data {
             title
             slug
+            published_at
         }
     }
   }
