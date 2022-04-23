@@ -1,7 +1,7 @@
 import "../sass/main.scss"
 
 import * as React from "react"
-import { graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 
 // config
 import config from "../data/config"
@@ -20,7 +20,46 @@ type AppProp = {
 }
 
 // markup
-const ArchivePage = ({ location, data }) => {
+const ArchivePage = ({ location }) => {
+  const data = useStaticQuery(graphql`
+    query {
+      cms {
+        pages(name: "Archive") {
+            data {
+                name
+                title
+                subtitle
+                text
+                meta_title
+                meta_description
+            }
+        }
+
+        featured: posts(featured: true, first: 1) {
+            data {
+                title
+                slug
+                summary
+                text
+                published_at
+            }
+        }
+
+        posts(first: 150) {
+            data {
+                title
+                slug
+                published_at
+            }
+            paginatorInfo {
+              hasMorePages
+              currentPage
+              count
+            }
+        }
+      }
+    }`)
+
   const { pages, featured, posts } = data.cms
 
   const latestPost = posts.data.length > 0 ? posts.data[0] : {}
@@ -58,43 +97,3 @@ const ArchivePage = ({ location, data }) => {
 }
 
 export default ArchivePage
-
-export const pageQuery = graphql`
-query ArchivePageQuery {
-  cms {
-    pages(name: "Archive") {
-        data {
-            name
-            title
-            subtitle
-            text
-            meta_title
-            meta_description
-        }
-    }
-
-    featured: posts(featured: true, first: 1) {
-        data {
-            title
-            slug
-            summary
-            text
-            published_at
-        }
-    }
-
-    posts(first: 150) {
-        data {
-            title
-            slug
-            published_at
-        }
-        paginatorInfo {
-          hasMorePages
-          currentPage
-          count
-        }
-    }
-  }
-}
-`

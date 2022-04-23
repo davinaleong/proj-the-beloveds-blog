@@ -1,7 +1,7 @@
 import "../sass/main.scss"
 
 import * as React from "react"
-import { graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 
 // config
 import config from "../data/config"
@@ -18,7 +18,30 @@ type AppProp = {
 }
 
 // markup
-const AboutPage = ({ data }) => {
+const AboutPage = () => {
+    const data = useStaticQuery(graphql`
+        query {
+            cms {
+                pages(name: "About") {
+                    data {
+                        name
+                        title
+                        subtitle
+                        text
+                        meta_title
+                        meta_description
+                    }
+                }
+
+                posts(first: 1) {
+                    data {
+                        slug
+                    }
+                }
+            }
+        }
+    `)
+
     const { pages, posts } = data.cms
 
     const latestPost = posts.data.length > 0 ? posts.data[0] : {}
@@ -41,26 +64,3 @@ const AboutPage = ({ data }) => {
 }
 
 export default AboutPage
-
-export const pageQuery = graphql`
-query AboutPageQuery {
-  cms {
-    pages(name: "About") {
-        data {
-            name
-            title
-            subtitle
-            text
-            meta_title
-            meta_description
-        }
-    }
-
-    posts(first: 1) {
-        data {
-            slug
-        }
-    }
-  }
-}
-`
