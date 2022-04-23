@@ -1,8 +1,8 @@
 import "../sass/main.scss"
 
 import * as React from "react"
+import { graphql, useStaticQuery } from "gatsby"
 import dayjs from "dayjs"
-import { graphql } from "gatsby"
 
 // config
 import config from "../data/config"
@@ -20,10 +20,49 @@ type AppProp = {
 }
 
 // markup
-const PostsPage = ({ location, data }) => {
+const PostsPage = ({ location }) => {
+  const params = new URLSearchParams(location.search);
+  const slug: any = params.get("slug")
+  const data = useStaticQuery(graphql`
+    query PostsPageQuery {
+      cms {
+        latest: posts(first: 1) {
+            data {
+                title
+                subtitle
+                text
+                slug
+                published_at
+                meta_title
+                meta_description
+            }
+        }
 
-  const { posts } = data.cms
-  let latestPost: Object = {}
+        posts(slug: "${slug}", first: 1) {
+            data {
+                title
+                subtitle
+                text
+                slug
+                published_at
+                meta_title
+                meta_description
+            }
+        }
+      }
+    }
+  `)
+
+  const { latest, posts } = data.cms
+  let latestPost: Object = {
+    title: "",
+    subtitle: "",
+    text: "",
+    published_at: "",
+    meta_title: "",
+    meta_description: "",
+    slug: ""
+  }
   let postData: Object = {
     title: "",
     subtitle: "",
@@ -33,14 +72,13 @@ const PostsPage = ({ location, data }) => {
     meta_description: "",
     slug: ""
   }
-  const params = new URLSearchParams(location.search);
-  const slug: any = params.get("slug")
-  if (posts.data.length > 0) {
-    latestPost = postData = posts.data[0]
 
-    if (slug) {
-      postData = posts.data.filter((post: any) => post.slug == slug)[0]
-    }
+  if (latest.data.length > 0) {
+    latestPost = latest.data[0]
+  }
+  
+  if (posts.data.length > 0) {
+    postData = posts.data[0]
   }
 
   const { title, subtitle, text, published_at, meta_title, meta_description } = postData
@@ -70,21 +108,3 @@ const PostsPage = ({ location, data }) => {
 }
 
 export default PostsPage
-
-export const pageQuery = graphql`
-query PostsPageQuery {
-  cms {
-    posts(first: 150) {
-        data {
-            title
-            subtitle
-            text
-            slug
-            published_at
-            meta_title
-            meta_description
-        }
-    }
-  }
-}
-`
