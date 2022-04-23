@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Link } from "gatsby"
 import dayjs from "dayjs"
 
 // helpers
@@ -32,7 +33,7 @@ const FeaturedPostComponent =  (props: any) => {
               <p className="post-date">{ publishedAt }</p>
               { summaryElement }
               <div className="btn-container">
-                <a href={ link } className="btn btn-primary">View Post</a>
+                <Link to={ link } className="btn btn-primary">View Post</Link>
               </div>
             </article>
           </div>

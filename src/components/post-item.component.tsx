@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Link } from "gatsby"
 import dayjs from "dayjs"
 
 // helpers
@@ -19,7 +20,7 @@ const PostItemComponent  = (props: any) => {
         <article className="post-item">
             <h3 className="post-title">{ title }</h3>
             <p className="post-date">{ publishedAt }</p>
-            <a href={ link } className="btn btn-link">View Post</a>
+            <Link to={ link } className="btn btn-link">View Post</Link>
         </article>
     )
 }
