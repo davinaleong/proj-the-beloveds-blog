@@ -32,7 +32,7 @@ const IndexPage = ({ data }) => {
   return (
     <MainLayout bgColor="bg-accent-1" meta={ meta } latestPost={ latestPost }>
       <main className="main-content">
-        <HeroComponent title={ title } subtitle={ subtitle } />
+        <HeroComponent title={ title } subtitle={ subtitle } isIndex={ true } />
 
         <FeaturedPostComponent post={ featuredData } showSummary={ true } isIndex={ true } />
 
