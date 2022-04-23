@@ -8,7 +8,7 @@ type AppProps = {
 const ContentComponent = (props: any) => {
   const { text } = props
   return (
-    <section className="content-section">
+    <section className="content-section bg-primary-light">
       <div className="container content">
         <ReactMarkdown children={ text } />
       </div>

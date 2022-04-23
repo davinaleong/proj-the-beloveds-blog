@@ -62,7 +62,7 @@ const PostsPage = ({ location, data }) => {
     <MainLayout bgColor={ bgColor } meta={ meta } latestPost={ latestPost }>
       <main className="main-content">
         <HeroComponent title={ title } subtitle={ publishedAt }/>
-        { subtitle }
+        { verseElement }
         <ContentComponent text={ text } />
       </main>
     </MainLayout>

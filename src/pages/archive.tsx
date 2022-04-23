@@ -47,9 +47,9 @@ const ArchivePage = ({ location, data }) => {
       <main className="main-content">
         <HeroComponent title={ title } />
 
-        <FeaturedPostComponent post={ featuredData } showSummary={ false } />
+        <FeaturedPostComponent post={ featuredData } showSummary={ false } isIndex={ false } />
 
-        <PostListComponent title="All Posts" posts={ postData } showButton={ false } />
+        <PostListComponent title="All Posts" posts={ postData } showButton={ false } isIndex={ false } />
 
         <PaginationComponent current={ current } count={ posts.paginatorInfo.count }/>
       </main>
