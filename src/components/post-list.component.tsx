@@ -2,21 +2,24 @@ import * as React from "react"
 
 // components
 import PostItemComponent from "./post-item.component"
-import LinkButtonComponent from "./link-button.component"
+import ButtonComponent from "./button.component"
+import ArchiveUrlHelper from "../helpers/archive-url.helper"
 
 type AppProps = {
     title: string,
     posts: Object[],
-    showButton: boolean
+    showButton: boolean,
+    isIndex: boolean
 }
 
 const PostListComponent = (props: any) => {
-    const { title, posts, showButton } = props
+    const { title, posts, showButton, isIndex } = props
     let button: any = null
     if (showButton) {
+      const archiveUri = ArchiveUrlHelper(1)
       button = (
         <div className="btn-container align-center">
-          <LinkButtonComponent label="View All" link="/archive?page=1"/>
+          <ButtonComponent label="View All" link={ archiveUri } className="btn btn-primary"/>
         </div>
       )
     }
@@ -29,7 +32,7 @@ const PostListComponent = (props: any) => {
             </header>
 
             <div className="post-list">
-                { posts.map((post: Object, index: Number) => <PostItemComponent post={ post } key={ "pi" + index } />) }
+                { posts.map((post: Object, index: Number) => <PostItemComponent post={ post } isIndex={ isIndex } key={ "pi" + index } />) }
 
                 { button }
             </div>

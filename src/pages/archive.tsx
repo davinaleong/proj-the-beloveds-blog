@@ -49,7 +49,7 @@ const ArchivePage = ({ location, data }) => {
 
         <FeaturedPostComponent post={ featuredData } showSummary={ false } />
 
-        <PostListComponent title="All Posts" posts={ postData } showButton={ false } />
+        <PostListComponent title="All Posts" posts={ postData } showButton={ false } isIndex={ false } />
 
         <PaginationComponent current={ current } count={ posts.paginatorInfo.count }/>
       </main>
