@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "gatsby"
 
 // helpers
 import PostUrlHelper from "../helpers/post-url.helper";
@@ -29,18 +30,28 @@ const HeaderComponent = (props: any) => {
         <header className="main-header">
             <nav className={ "main-nav " + active }>
             <div className="brand-container">
-                <a href="/" className="brand">
+                <Link to="/" className="brand">
                     <img src={ Logo } alt="Brand Logo" className="icon" /> The Beloved's Blog
-                </a>
+                </Link>
             </div>
 
             <div className="links-container">
                 <ul className="nav-links">
-                <li className="nav-item"><a href="/" className="nav-link">Home</a></li>
-                <li className="nav-item"><a href="/about" className="nav-link">About</a></li>
-                <li className="nav-item"><a href={ postUri } className="nav-link">Latest Post</a></li>
-                <li className="nav-item"><a href={ archiveUri } className="nav-link">Archive</a></li>
-                <li className="nav-item"><a href="/contact" className="nav-link">Contact</a></li>
+                    <li className="nav-item">
+                        <Link to="/" className="nav-link">Home</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/about" className="nav-link">About</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to={ postUri } className="nav-link">Latest Post</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to={ archiveUri } className="nav-link">Archive</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/contact" className="nav-link">Contact</Link>
+                    </li>
                 </ul>
             </div>
 
