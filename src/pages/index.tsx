@@ -1,7 +1,7 @@
 import "../sass/main.scss"
 
 import * as React from "react"
-import { graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 
 // layout
 import MainLayout from "../layouts/main.layout"
@@ -11,12 +11,46 @@ import HeroComponent from "../components/hero.component"
 import FeaturedPostComponent from "../components/featured-post.component"
 import PostListComponent from "../components/post-list.component"
 
-type AppProp = {
-  data: any
-}
+// config
+import config from "../data/config"
 
 // markup
-const IndexPage = ({ data }) => {
+const IndexPage = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      cms {
+        pages(name: "Index") {
+            data {
+                name
+                title
+                subtitle
+                text
+                meta_title
+                meta_description
+            }
+        }
+
+        featured: posts(featured: true, first: 1) {
+            data {
+                title
+                slug
+                summary
+                text
+                published_at
+            }
+        }
+
+        posts(first: 6) {
+            data {
+                title
+                slug
+                published_at
+            }
+        }
+      }
+    }
+  `)
+
   const { pages, featured, posts } = data.cms
 
   const latestPost = posts.data.length > 0 ? posts.data[0] : {}
@@ -43,38 +77,3 @@ const IndexPage = ({ data }) => {
 }
 
 export default IndexPage
-
-export const pageQuery = graphql`
-query IndexPageQuery {
-  cms {
-    pages(name: "Index") {
-        data {
-            name
-            title
-            subtitle
-            text
-            meta_title
-            meta_description
-        }
-    }
-
-    featured: posts(featured: true, first: 1) {
-        data {
-            title
-            slug
-            summary
-            text
-            published_at
-        }
-    }
-
-    posts(first: 6) {
-        data {
-            title
-            slug
-            published_at
-        }
-    }
-  }
-}
-`

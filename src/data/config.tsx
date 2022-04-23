@@ -9,7 +9,8 @@ const config = {
             keywords: "Davina, Leong, Davina Leong, Blog, Christian, Testimonies, Revelations"
         }
     },
-    perPage: 20
+    perPage: 20,
+    endPoint: `http://davinas-cms.herokuapp.com/graphql`
 }
 
 export default config
