@@ -9,7 +9,7 @@ const ContactContentComponent = (props: any) => {
   const { text } = props
   return (
     <section className="content-section">
-      <div className="container align-center">
+      <div className="container content align-center">
         <ReactMarkdown children={ text } />
       </div>
     </section>
