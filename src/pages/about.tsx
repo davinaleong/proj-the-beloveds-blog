@@ -64,26 +64,3 @@ const AboutPage = () => {
 }
 
 export default AboutPage
-
-// export const pageQuery = graphql`
-// query AboutPageQuery {
-//   cms {
-//     pages(name: "About") {
-//         data {
-//             name
-//             title
-//             subtitle
-//             text
-//             meta_title
-//             meta_description
-//         }
-//     }
-
-//     posts(first: 1) {
-//         data {
-//             slug
-//         }
-//     }
-//   }
-// }
-// `
