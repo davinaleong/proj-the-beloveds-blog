@@ -81,6 +81,8 @@ query PostsPageQuery {
             text
             slug
             published_at
+            meta_title
+            meta_description
         }
     }
   }
