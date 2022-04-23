@@ -24,21 +24,9 @@ const PostsPage = ({ location }) => {
   const params = new URLSearchParams(location.search);
   const slug: any = params.get("slug")
   const data = useStaticQuery(graphql`
-    query PostsPageQuery {
+    query {
       cms {
-        latest: posts(first: 1) {
-            data {
-                title
-                subtitle
-                text
-                slug
-                published_at
-                meta_title
-                meta_description
-            }
-        }
-
-        posts(slug: "${slug}", first: 1) {
+        posts(first: 150) {
             data {
                 title
                 subtitle
@@ -53,16 +41,8 @@ const PostsPage = ({ location }) => {
     }
   `)
 
-  const { latest, posts } = data.cms
-  let latestPost: Object = {
-    title: "",
-    subtitle: "",
-    text: "",
-    published_at: "",
-    meta_title: "",
-    meta_description: "",
-    slug: ""
-  }
+  const { posts } = data.cms
+  let latestPost: Object = {}
   let postData: Object = {
     title: "",
     subtitle: "",
@@ -72,13 +52,13 @@ const PostsPage = ({ location }) => {
     meta_description: "",
     slug: ""
   }
-
-  if (latest.data.length > 0) {
-    latestPost = latest.data[0]
-  }
   
   if (posts.data.length > 0) {
-    postData = posts.data[0]
+    latestPost = postData = posts.data[0]
+
+    if (slug) {
+      postData = posts.data.filter((post: any) => post.slug == slug)[0]
+    }
   }
 
   const { title, subtitle, text, published_at, meta_title, meta_description } = postData
