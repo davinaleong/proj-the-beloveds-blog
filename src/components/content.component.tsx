@@ -9,7 +9,7 @@ const ContentComponent = (props: any) => {
   const { text } = props
   return (
     <section className="content-section">
-      <div className="container">
+      <div className="container content">
         <ReactMarkdown children={ text } />
       </div>
     </section>
