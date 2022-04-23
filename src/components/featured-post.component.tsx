@@ -1,17 +1,20 @@
 import * as React from "react"
-import { Link } from "gatsby"
 import dayjs from "dayjs"
 
 // helpers
 import PostUrlHelper from "../helpers/post-url.helper"
 
+// components
+import ButtonComponent from "./button.component"
+
 type AppProps = {
     post: Object,
-    showSummay: boolean
+    showSummay: boolean,
+    isIndex: boolean
 }
 
 const FeaturedPostComponent =  (props: any) => {
-    const { post, showSummary } = props
+    const { post, showSummary, isIndex } = props
     const { title,  published_at, summary, slug } = post
 
     let summaryElement: any = null
@@ -19,7 +22,7 @@ const FeaturedPostComponent =  (props: any) => {
       summaryElement = (<p className="post-description">{ summary }</p>)
     }
     const publishedAt: string = dayjs(published_at).format("D MMM YYYY")
-    const link: string = PostUrlHelper(slug)
+    const link: string = isIndex ? PostUrlHelper(slug) : "./../" + PostUrlHelper(slug)
 
     return (
         <section className="featured-section">
@@ -33,7 +36,7 @@ const FeaturedPostComponent =  (props: any) => {
               <p className="post-date">{ publishedAt }</p>
               { summaryElement }
               <div className="btn-container">
-                <Link to={ link } className="btn btn-primary">View Post</Link>
+                <ButtonComponent label="View Post" link={ link } className="btn btn-primary"/>
               </div>
             </article>
           </div>

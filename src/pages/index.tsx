@@ -34,7 +34,7 @@ const IndexPage = ({ data }) => {
       <main className="main-content">
         <HeroComponent title={ title } subtitle={ subtitle } />
 
-        <FeaturedPostComponent post={ featuredData } showSummary={ true } />
+        <FeaturedPostComponent post={ featuredData } showSummary={ true } isIndex={ true } />
 
         <PostListComponent title="Latest Posts" posts={ posts.data } showButton={ true } isIndex={ true } />
       </main>
