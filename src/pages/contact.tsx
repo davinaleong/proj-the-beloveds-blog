@@ -1,7 +1,7 @@
 import "../sass/main.scss"
 
 import * as React from "react"
-import { graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 
 // config
 import config from "../data/config"
@@ -13,12 +13,31 @@ import MainLayout from "../layouts/main.layout"
 import HeroComponent from "../components/hero.component"
 import ContactContentComponent from "../components/contact-content.component"
 
-type AppProp = {
-    data: any
-}
-
 // markup
-const ContactPage = ({ data }) => {
+const ContactPage = () => {
+    const data = useStaticQuery(graphql`
+        query {
+            cms {
+                pages(name: "Contact") {
+                    data {
+                        name
+                        title
+                        subtitle
+                        text
+                        meta_title
+                        meta_description
+                    }
+                }
+
+                posts(first: 1) {
+                    data {
+                        slug
+                    }
+                }
+            }
+        }
+    `)
+
     const { pages, posts } = data.cms
 
     const latestPost = posts.data.length > 0 ? posts.data[0] : {}
@@ -41,26 +60,3 @@ const ContactPage = ({ data }) => {
 }
 
 export default ContactPage
-
-export const pageQuery = graphql`
-query ContactPageQuery {
-  cms {
-    pages(name: "Contact") {
-        data {
-            name
-            title
-            subtitle
-            text
-            meta_title
-            meta_description
-        }
-    }
-
-    posts(first: 1) {
-        data {
-            slug
-        }
-    }
-  }
-}
-`
