@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Link } from "gatsby"
 
 // helpers
 import ArchiveUrlHelper from "../helpers/archive-url.helper"
@@ -28,7 +29,7 @@ const PaginationItemComponent = (props: any) => {
 
   return (
     <li className="pagination-item">
-      <a href={ link } className={ className }>{ labelElement }</a>
+      <Link to={ link } className={ className }>{ labelElement }</Link>
     </li>
   )
 }
