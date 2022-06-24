@@ -1,3 +1,3 @@
 # The Beloved's Blog
 
-WIP
+Project is live [here](https://the-beloveds-blog.com/).
