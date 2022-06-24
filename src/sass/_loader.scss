@@ -1,5 +1,6 @@
 .loading {
-    font-size: 30px;
+    font-size: size("site-title");
+    @extend .p-3;
 }
 
 .loading:after {

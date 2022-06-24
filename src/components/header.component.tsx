@@ -16,7 +16,12 @@ type AppProps = {
 
 const HeaderComponent = (props: any) => {
     const { latestPost } = props
-    const postUri = "/" + PostUrlHelper(latestPost.slug)
+    let slug = ""
+    if (latestPost && latestPost.slug) {
+        slug = latestPost.slug
+    }
+
+    const postUri = "/" + PostUrlHelper(slug)
     const archiveUri = "/" + ArchiveUrlHelper(1)
 
     const [expandMenu, toggleMenu] = useState(false)
