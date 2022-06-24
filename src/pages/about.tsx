@@ -44,10 +44,13 @@ class AboutPage extends React.Component {
           <LoaderComponent />
         </main>
       )
+      let meta: Object = {}
+      let latestPost: Object = {}
   
       if (!loading) {
-        const { page } = data
-        const meta: Object = {
+        const { page, latest } = data
+        latestPost = latest[0]
+        meta = {
           description: page.meta_description
         }
         content = (
@@ -59,7 +62,7 @@ class AboutPage extends React.Component {
       }
   
       return (
-        <MainLayout bgColor="bg-primary-light" loading={ loading }>
+        <MainLayout bgColor="bg-primary-light" loading={ loading } meta={ meta } latestPost={ latestPost }>
           { content }
         </MainLayout>
       )

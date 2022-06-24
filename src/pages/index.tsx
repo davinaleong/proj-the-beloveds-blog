@@ -24,7 +24,7 @@ class IndexPage extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      data: {}
+      data: {},
     };
   }
 
@@ -37,16 +37,18 @@ class IndexPage extends React.Component {
 
   render() {
     const { loading, data } = this.state
-    let content = (
+    let content: any = (
       <main className="main-content">
         <LoaderComponent />
       </main>
     )
+    let meta: Object = {}
+    let latestPost: Object = {}
 
     if (!loading) {
       const { page, featured, latest } = data
-      const latestPost: Object = latest[0]
-      const meta: Object = {
+      latestPost = latest[0]
+      meta = {
         description: page.meta_description
       }
       content = (
@@ -59,7 +61,7 @@ class IndexPage extends React.Component {
     }
 
     return (
-      <MainLayout bgColor="bg-accent-1" loading={ loading }>
+      <MainLayout bgColor="bg-accent-1" loading={ loading } meta={ meta } latestPost={ latestPost }>
         { content }
       </MainLayout>
     )

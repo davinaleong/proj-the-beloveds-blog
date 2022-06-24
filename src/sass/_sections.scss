@@ -65,10 +65,10 @@ main {
   gap: spacer("4");
   cursor: pointer;
   transition: opacity 0.3 ease-in-out;
-  &:hover,
-  &:active {
-    opacity: 0.7;
-  }
+  // &:hover,
+  // &:active {
+  //   opacity: 0.7;
+  // }
 
   & > .post-item {
     width: 100%;
