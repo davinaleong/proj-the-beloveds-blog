@@ -2,7 +2,6 @@ import "../sass/main.scss"
 
 import * as React from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import dayjs from "dayjs"
 
 // config
 import config from "../data/config"
@@ -14,77 +13,74 @@ import MainLayout from "../layouts/main.layout"
 import HeroComponent from "../components/hero.component"
 import VerseComponent from "../components/verse.component"
 import ContentComponent from "../components/content.component"
+import LoaderComponent from "../components/loader.component"
+
+const params = new URLSearchParams(location.search)
+const slug: any = params.get("slug")
+const endpoint = `${config.apiEndPoint}blog/posts/${slug}`
 
 type AppProp = {
-  data: any
+    data: any
 }
 
 // markup
-const PostsPage = ({ location }) => {
-  const params = new URLSearchParams(location.search);
-  const slug: any = params.get("slug")
-  const data = useStaticQuery(graphql`
-    query {
-      cms {
-        posts(first: 150) {
-            data {
-                title
-                subtitle
-                text
-                slug
-                published_at
-                meta_title
-                meta_description
-            }
+class PostsPage extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        loading: true,
+        data: {}
+      };
+    }
+  
+    componentDidMount() {
+      fetch(endpoint, { method: "GET" })
+        .then(response => response.json())
+        .then(data => this.setState({ loading: false, data: data }))
+        .catch(err => alert(err))
+    }
+  
+    render() {
+      const { loading, data } = this.state
+      let content = (
+        <main className="main-content">
+          <LoaderComponent />
+        </main>
+      )
+      let bgColor = "bg-primary-light"
+      let meta: Object = {}
+      let latestPost: Object = {}
+  
+      if (!loading) {
+        const { latest, posts } = data
+        latestPost = latest[0]
+        if (posts && posts.length > 0) {
+          const post = posts[0]
+          meta = {
+            title: `${config.meta.default.title} - ${post.meta_title}`,
+            description: post.meta_description
+          }
+          let verseElement = null
+          if (post.subtitle) {
+            bgColor = "bg-accent-1"
+            verseElement = <VerseComponent text={ post.subtitle } />
+          }
+          content = (
+            <main className="main-content">
+              <HeroComponent title={ post.title } />
+              { verseElement }
+              <ContentComponent text={ post.text } />
+            </main>
+          )
         }
       }
-    }
-  `)
-
-  const { posts } = data.cms
-  let latestPost: Object = {}
-  let postData: Object = {
-    title: "",
-    subtitle: "",
-    text: "",
-    published_at: "",
-    meta_title: "",
-    meta_description: "",
-    slug: ""
-  }
   
-  if (posts.data.length > 0) {
-    latestPost = postData = posts.data[0]
-
-    if (slug) {
-      postData = posts.data.filter((post: any) => post.slug == slug)[0]
+      return (
+        <MainLayout bgColor={ bgColor } loading={ loading } meta={ meta } latestPost={ latestPost }>
+          { content }
+        </MainLayout>
+      )
     }
   }
-
-  const { title, subtitle, text, published_at, meta_title, meta_description } = postData
-  const meta: Object = {
-    title: `${config.meta.default.title} - ${meta_title}`,
-    description: meta_description
-  }
   
-  let bgColor = "bg-primary-light"
-  const publishedAt: string = dayjs(published_at).format("D MMM YYYY")
-
-  let verseElement = null
-  if (subtitle) {
-    bgColor = "bg-accent-1"
-    verseElement = <VerseComponent text={ subtitle } />
-  }
-
-  return (
-    <MainLayout bgColor={ bgColor } meta={ meta } latestPost={ latestPost }>
-      <main className="main-content">
-        <HeroComponent title={ title } subtitle={ publishedAt }/>
-        { verseElement }
-        <ContentComponent text={ text } />
-      </main>
-    </MainLayout>
-  )
-}
-
-export default PostsPage
+  export default PostsPage

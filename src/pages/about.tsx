@@ -14,7 +14,7 @@ import HeroComponent from "../components/hero.component"
 import ContentComponent from "../components/content.component"
 import LoaderComponent from "../components/loader.component"
 
-const endpoint = `${config.apiEndPoint}blog/about`;
+const endpoint = `${config.apiEndPoint}blog/about`
 
 type AppProp = {
     data: any

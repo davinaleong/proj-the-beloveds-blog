@@ -16,7 +16,7 @@ import PostListComponent from "../components/post-list.component"
 
 import LoaderComponent from "../components/loader.component"
 
-const endpoint = `${config.apiEndPoint}blog`;
+const endpoint = `${config.apiEndPoint}blog`
 
 // markup
 class IndexPage extends React.Component {
