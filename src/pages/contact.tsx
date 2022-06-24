@@ -11,52 +11,59 @@ import MainLayout from "../layouts/main.layout"
 
 // components
 import HeroComponent from "../components/hero.component"
-import ContactContentComponent from "../components/contact-content.component"
+import ContentComponent from "../components/content.component"
+import LoaderComponent from "../components/loader.component"
 
-// markup
-const ContactPage = () => {
-    const data = useStaticQuery(graphql`
-        query {
-            cms {
-                pages(name: "Contact") {
-                    data {
-                        name
-                        title
-                        subtitle
-                        text
-                        meta_title
-                        meta_description
-                    }
-                }
+const endpoint = `${config.apiEndPoint}blog/contact`;
 
-                posts(first: 1) {
-                    data {
-                        slug
-                    }
-                }
-            }
-        }
-    `)
-
-    const { pages, posts } = data.cms
-
-    const latestPost = posts.data.length > 0 ? posts.data[0] : {}
-
-    const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
-    const { title, text, meta_title, meta_description } = pageData
-    const meta: Object = {
-        title: `${config.meta.default.title} - ${meta_title}`,
-        description: meta_description
-    }
-
-    return (
-        <MainLayout bgColor="bg-primary-light" meta={ meta } latestPost={ latestPost }>
-            <main className="main-content">
-                <HeroComponent title={ title } />
-                <ContactContentComponent text={ text } />
-            </main>
-        </MainLayout>
-    )
+type AppProp = {
+    data: any
 }
 
-export default ContactPage
+// markup
+class ContactPage extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        loading: true,
+        data: {}
+      };
+    }
+  
+    componentDidMount() {
+      fetch(endpoint, { method: "GET" })
+        .then(response => response.json())
+        .then(data => this.setState({ loading: false, data: data }))
+        .catch(err => alert(err))
+    }
+  
+    render() {
+      const { loading, data } = this.state
+      let content = (
+        <main className="main-content">
+          <LoaderComponent />
+        </main>
+      )
+  
+      if (!loading) {
+        const { page } = data
+        const meta: Object = {
+          description: page.meta_description
+        }
+        content = (
+          <main className="main-content">
+                <HeroComponent title={ page.title } />
+                <ContentComponent text={ page.text } />
+          </main>
+        )
+      }
+  
+      return (
+        <MainLayout bgColor="bg-primary-light" loading={ loading }>
+          { content }
+        </MainLayout>
+      )
+    }
+  }
+  
+  export default ContactPage
