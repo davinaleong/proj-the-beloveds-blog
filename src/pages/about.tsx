@@ -12,55 +12,58 @@ import MainLayout from "../layouts/main.layout"
 // components
 import HeroComponent from "../components/hero.component"
 import ContentComponent from "../components/content.component"
+import LoaderComponent from "../components/loader.component"
+
+const endpoint = `${config.apiEndPoint}blog/about`;
 
 type AppProp = {
     data: any
 }
 
 // markup
-const AboutPage = () => {
-    const data = useStaticQuery(graphql`
-        query {
-            cms {
-                pages(name: "About") {
-                    data {
-                        name
-                        title
-                        subtitle
-                        text
-                        meta_title
-                        meta_description
-                    }
-                }
-
-                posts(first: 1) {
-                    data {
-                        slug
-                    }
-                }
-            }
-        }
-    `)
-
-    const { pages, posts } = data.cms
-
-    const latestPost = posts.data.length > 0 ? posts.data[0] : {}
-
-    const pageData: Object = pages.data.length > 0 ? pages.data[0] : {}
-    const { title, text, meta_title, meta_description } = pageData
-    const meta: Object = {
-        title: `${config.meta.default.title} - ${meta_title}`,
-        description: meta_description
+class AboutPage extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        loading: true,
+        data: {}
+      };
     }
-
-    return (
-        <MainLayout bgColor="bg-primary-light" meta={ meta } latestPost={ latestPost }>
-            <main className="main-content">
-                <HeroComponent title={ title } />
-                <ContentComponent text={ text } />
-            </main>
+  
+    componentDidMount() {
+      fetch(endpoint, { method: "GET" })
+        .then(response => response.json())
+        .then(data => this.setState({ loading: false, data: data }))
+        .catch(err => alert(err))
+    }
+  
+    render() {
+      const { loading, data } = this.state
+      let content = (
+        <main className="main-content">
+          <LoaderComponent />
+        </main>
+      )
+  
+      if (!loading) {
+        const { page } = data
+        const meta: Object = {
+          description: page.meta_description
+        }
+        content = (
+          <main className="main-content">
+                <HeroComponent title={ page.title } />
+                <ContentComponent text={ page.text } />
+          </main>
+        )
+      }
+  
+      return (
+        <MainLayout bgColor="bg-primary-light" loading={ loading }>
+          { content }
         </MainLayout>
-    )
-}
-
-export default AboutPage
+      )
+    }
+  }
+  
+  export default AboutPage

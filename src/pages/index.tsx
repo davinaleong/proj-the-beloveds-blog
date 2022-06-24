@@ -3,6 +3,9 @@ import "../sass/main.scss"
 import * as React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 
+// config
+import config from "../data/config"
+
 // layout
 import MainLayout from "../layouts/main.layout"
 
@@ -13,11 +16,7 @@ import PostListComponent from "../components/post-list.component"
 
 import LoaderComponent from "../components/loader.component"
 
-// config
-import config from "../data/config"
-import { threadId } from "worker_threads"
-
-const indexPageEndpoint = `${config.apiEndPoint}blog`;
+const endpoint = `${config.apiEndPoint}blog`;
 
 // markup
 class IndexPage extends React.Component {
@@ -30,7 +29,7 @@ class IndexPage extends React.Component {
   }
 
   componentDidMount() {
-    fetch(indexPageEndpoint, { method: "GET" })
+    fetch(endpoint, { method: "GET" })
       .then(response => response.json())
       .then(data => this.setState({ loading: false, data: data }))
       .catch(err => alert(err))
@@ -53,9 +52,7 @@ class IndexPage extends React.Component {
       content = (
         <main className="main-content">
           <HeroComponent title={ page.title } subtitle={ page.subtitle } isIndex={ true } />
-
           <FeaturedPostComponent post={ featured } showSummary={ true } isIndex={ true } />
-
           <PostListComponent title="Latest Posts" posts={ latest } showButton={ true } isIndex={ true } />
         </main>
       )
