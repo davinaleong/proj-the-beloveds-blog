@@ -12,14 +12,14 @@ import MainLayout from "../layouts/main.layout"
 // components
 import HeroComponent from "../components/hero.component"
 import FeaturedPostComponent from "../components/featured-post.component"
-import PostListComponent from "../components/post-list.component"
 
 import LoaderComponent from "../components/loader.component"
+import ArchiveListUrlHelper from "../helpers/archive-list-url.helper"
 
-const endpoint = `${config.apiEndPoint}blog`
+const endpoint = `${config.apiEndPoint}blog/archive-folder`
 
 // markup
-class IndexPage extends React.Component {
+class ArchiveFolderPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +29,6 @@ class IndexPage extends React.Component {
   }
 
   componentDidMount() {
-    console.log(endpoint)
     fetch(endpoint, { method: "GET" })
       .then(response => response.json())
       .then(data => this.setState({ loading: false, data: data }))
@@ -47,16 +46,28 @@ class IndexPage extends React.Component {
     let latestPost: Object = {}
 
     if (!loading) {
-      const { page, featured, latest } = data
+      const { page, featured, latest, folders } = data
       latestPost = latest[0]
       meta = {
         description: page.meta_description
+      }
+      
+      let folderListComponent = null
+      if (folders.length > 0) {
+        folderListComponent = (folders.map((folder: Object, index: Number) => <a key={ 'f' + index } href={ ArchiveListUrlHelper(folder.year) } className="folder-item">{ folder.year }</a>))
       }
       content = (
         <main className="main-content">
           <HeroComponent title={ page.title } subtitle={ page.subtitle } isIndex={ true } />
           <FeaturedPostComponent post={ featured } showSummary={ true } isIndex={ true } />
-          <PostListComponent title="Latest Posts" posts={ latest } showButton={ true } isIndex={ true } />
+
+          <section className="content-section bg-primary-light">
+            <div className="container">
+              <div className="folder-list">
+                { folderListComponent }
+              </div>
+            </div>
+          </section>
         </main>
       )
     }
@@ -69,4 +80,4 @@ class IndexPage extends React.Component {
   }
 }
 
-export default IndexPage
+export default ArchiveFolderPage

@@ -8,7 +8,6 @@ import PostUrlHelper from "../helpers/post-url.helper";
 import Logo from "../images/logo.svg";
 import Xmark from "../images/xmark.svg";
 import Bars from "../images/bars.svg";
-import ArchiveUrlHelper from "../helpers/archive-url.helper";
 
 type AppProps = {
     latestPost: Object
@@ -22,7 +21,6 @@ const HeaderComponent = (props: any) => {
     }
 
     const postUri = "/" + PostUrlHelper(slug)
-    const archiveUri = "/" + ArchiveUrlHelper(1)
 
     const [expandMenu, toggleMenu] = useState(false)
     const active = expandMenu ? 'active' : ''
@@ -52,7 +50,7 @@ const HeaderComponent = (props: any) => {
                         <Link to={ postUri } className="nav-link">Latest Post</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to={ archiveUri } className="nav-link">Archive</Link>
+                        <Link to="/archiveFolder" className="nav-link">Archive</Link>
                     </li>
                     <li className="nav-item">
                         <Link to="/contact" className="nav-link">Contact</Link>

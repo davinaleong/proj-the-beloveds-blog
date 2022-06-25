@@ -2,7 +2,7 @@ import * as React from "react"
 import { Link } from "gatsby"
 
 // helpers
-import ArchiveUrlHelper from "../helpers/archive-url.helper"
+import ArchiveUrlHelper from "../helpers/archive-list-url.helper"
 
 type AppProps = {
   label: string,

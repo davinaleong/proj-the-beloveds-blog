@@ -4,9 +4,6 @@ import * as React from "react"
 import PostItemComponent from "./post-item.component"
 import ButtonComponent from "./button.component"
 
-// helpers
-import ArchiveUrlHelper from "../helpers/archive-url.helper"
-
 type AppProps = {
     title: string,
     posts: Object[],
@@ -18,10 +15,9 @@ const PostListComponent = (props: any) => {
     const { title, posts, showButton, isIndex } = props
     let button: any = null
     if (showButton) {
-      const archiveUri = ArchiveUrlHelper(1)
       button = (
         <div className="btn-container align-center">
-          <ButtonComponent label="View All" link={ archiveUri } className="btn btn-primary"/>
+          <ButtonComponent label="View All" link="archiveFolder" className="btn btn-primary"/>
         </div>
       )
     }
