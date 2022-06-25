@@ -1,4 +1,8 @@
 import * as React from "react"
+import { Link } from "gatsby"
+
+// helpers
+import ArchiveListUrlHelper from "../helpers/archive-list-url.helper"
 
 type AppProps = {
   label: string,
@@ -9,7 +13,7 @@ type AppProps = {
 }
 
 const PaginationItemComponent = (props: any) => {
-  const { label, page, image, isImage, active, folder } = props
+  const { label, page, image, isImage, active, folder, updatePage } = props
   const link = `?folder=${folder}&page=${page}`
 
   let className = "pagination-link"
@@ -25,7 +29,7 @@ const PaginationItemComponent = (props: any) => {
 
   return (
     <li className="pagination-item">
-      <a href={ link } className={ className } onClick={() => window.location.reload()}>{ labelElement }</a>
+      <Link to={ link } className={ className }>{ labelElement }</Link>
     </li>
   )
 }

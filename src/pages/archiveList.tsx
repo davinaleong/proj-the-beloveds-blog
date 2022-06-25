@@ -1,6 +1,7 @@
 import "../sass/main.scss"
 
 import * as React from "react"
+import { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 
 // config
@@ -25,6 +26,7 @@ const endpoint = `${config.apiEndPoint}blog/archive-list`
 class ArchiveListPage extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       loading: true,
       data: {},
@@ -33,17 +35,17 @@ class ArchiveListPage extends React.Component {
 
   componentDidMount() {
     const params = new URLSearchParams(location.search);
-    let folder: any = params.get("folder")
-    if (!folder) {
-      folder = 2022
+    let pageParam: any = params.get("page")
+    if (!pageParam) {
+      pageParam = 1
     }
 
-    let page: any = params.get("page")
-    if (!page) {
-      page = 1
+    let folderParam: any = params.get("folder")
+    if (!folderParam) {
+      folderParam = 2022
     }
 
-    const archiveEndpoint = `${endpoint}/${folder}?page=${page}`;
+    const archiveEndpoint = `${endpoint}/${folderParam}?page=${pageParam}`;
     fetch(archiveEndpoint, { method: "GET" })
       .then(response => response.json())
       .then(data => this.setState({ loading: false, data: data }))
@@ -51,7 +53,7 @@ class ArchiveListPage extends React.Component {
   }
 
   render() {
-    const { loading, data } = this.state
+    const { loading, page, data } = this.state
     const params = new URLSearchParams(location.search);
     let folder: any = params.get("folder")
     if (!folder) {
@@ -83,7 +85,7 @@ class ArchiveListPage extends React.Component {
           <HeroComponent title={ page.title } subtitle={ page.subtitle } isIndex={ true } />
           <FeaturedPostComponent post={ featured } showSummary={ true } isIndex={ true } />
           { postListComponent }
-          <PaginationComponent current={ current_page } last={ last_page } folder={ folder }
+          <PaginationComponent current={ current_page } last={ last_page } folder={ folder } updatePage={ this.updatePage }
           />
         </main>
       )
