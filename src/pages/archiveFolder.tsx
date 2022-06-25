@@ -12,8 +12,10 @@ import MainLayout from "../layouts/main.layout"
 // components
 import HeroComponent from "../components/hero.component"
 import FeaturedPostComponent from "../components/featured-post.component"
-
+import FolderListComponent from "../components/folder-list.component"
 import LoaderComponent from "../components/loader.component"
+
+// helpers
 import ArchiveListUrlHelper from "../helpers/archive-list-url.helper"
 
 const endpoint = `${config.apiEndPoint}blog/archive-folder`
@@ -52,22 +54,11 @@ class ArchiveFolderPage extends React.Component {
         description: page.meta_description
       }
       
-      let folderListComponent = null
-      if (folders.length > 0) {
-        folderListComponent = (folders.map((folder: Object, index: Number) => <a key={ 'f' + index } href={ ArchiveListUrlHelper(folder.year) } className="folder-item">{ folder.year }</a>))
-      }
       content = (
         <main className="main-content">
           <HeroComponent title={ page.title } subtitle={ page.subtitle } isIndex={ true } />
           <FeaturedPostComponent post={ featured } showSummary={ true } isIndex={ true } />
-
-          <section className="content-section bg-primary-light">
-            <div className="container">
-              <div className="folder-list">
-                { folderListComponent }
-              </div>
-            </div>
-          </section>
+          <FolderListComponent folders={ folders } />
         </main>
       )
     }
