@@ -12,7 +12,8 @@ import MainLayout from "../layouts/main.layout"
 // components
 import HeroComponent from "../components/hero.component"
 import FeaturedPostComponent from "../components/featured-post.component"
-import FolderListComponent from "../components/folder-list.component"
+import PostListComponent from "../components/post-list.component"
+import PaginationComponent from "../components/pagination.component"
 import LoaderComponent from "../components/loader.component"
 
 // helpers
@@ -42,7 +43,7 @@ class ArchiveListPage extends React.Component {
       page = 1
     }
 
-    const archiveEndpoint = `${endpoint}/${folder}?=page${page}`;
+    const archiveEndpoint = `${endpoint}/${folder}?page=${page}`;
     fetch(archiveEndpoint, { method: "GET" })
       .then(response => response.json())
       .then(data => this.setState({ loading: false, data: data }))
@@ -51,6 +52,11 @@ class ArchiveListPage extends React.Component {
 
   render() {
     const { loading, data } = this.state
+    const params = new URLSearchParams(location.search);
+    let folder: any = params.get("folder")
+    if (!folder) {
+      folder = 2022
+    }
     let content: any = (
       <main className="main-content">
         <LoaderComponent />
@@ -65,11 +71,20 @@ class ArchiveListPage extends React.Component {
       meta = {
         description: page.meta_description
       }
+
+      let postListComponent = null
+      if (posts.data.length > 0) {
+        postListComponent = <PostListComponent title={ folder } posts={ posts.data } showButton={ false } isIndex={ false } />
+      }
       
+      const { current_page, last_page } = posts
       content = (
         <main className="main-content">
           <HeroComponent title={ page.title } subtitle={ page.subtitle } isIndex={ true } />
           <FeaturedPostComponent post={ featured } showSummary={ true } isIndex={ true } />
+          { postListComponent }
+          <PaginationComponent current={ current_page } last={ last_page } folder={ folder }
+          />
         </main>
       )
     }

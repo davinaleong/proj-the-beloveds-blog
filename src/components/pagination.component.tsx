@@ -12,21 +12,20 @@ import PaginationItemComponent from "../components/pagination-item.component"
 
 type AppProps = {
     current: number,
-    count: number
+    last: number
 }
 
 const PaginationComponent = (props: any) => {
-  const { current, count } = props
+  const { current, last, folder } = props
 
-  const pages: number = Math.ceil(count / config.perPage)
   let prev: number = parseInt(current) - 1
   if (prev < 1) {
     prev = 1
   }
 
   let next: number = parseInt(current) + 1
-  if (next > pages) {
-    next = pages
+  if (next > last) {
+    next = last
   }
 
   const paginationItems = []
@@ -40,7 +39,7 @@ const PaginationComponent = (props: any) => {
     })
   }
 
-  for (let i: number = 0; i < pages; i++) {
+  for (let i: number = 0; i < last; i++) {
     const page = i + 1;
     paginationItems.push({
       label: page,
@@ -51,7 +50,7 @@ const PaginationComponent = (props: any) => {
     })
   }
 
-  if (current < pages) {
+  if (current < last) {
     paginationItems.push({
       label: "",
       page: next,
@@ -65,7 +64,7 @@ const PaginationComponent = (props: any) => {
     <section className="pagination-section bg-primary-light">
       <div className="container">
         <ul className="pagination">
-          { paginationItems.map(({ label, page, image, isImage, active }, index) => <PaginationItemComponent label={ label } page={ page } image={ image } isImage={ isImage } active={ active } key={ 'pic' + index } />) }
+          { paginationItems.map(({ label, page, image, isImage, active }, index) => <PaginationItemComponent label={ label } page={ page } image={ image } isImage={ isImage } active={ active } folder={ folder } key={ 'pic' + index } />) }
         </ul>
       </div>
     </section>
