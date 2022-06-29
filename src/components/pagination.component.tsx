@@ -64,7 +64,7 @@ const PaginationComponent = (props: any) => {
     <section className="pagination-section bg-primary-light">
       <div className="container">
         <ul className="pagination">
-          { paginationItems.map(({ label, page, image, isImage, active }, index) => <PaginationItemComponent label={ label } page={ page } image={ image } isImage={ isImage } active={ active } folder={ folder } key={ 'pic' + index } />) }
+          { paginationItems.map(({ label, page, image, isImage, active }, index) => <PaginationItemComponent label={ label } page={ page } image={ image } isImage={ isImage } active={ active } folder={ folder } fetchData={ props.fetchData } key={ 'pic' + index } />) }
         </ul>
       </div>
     </section>
