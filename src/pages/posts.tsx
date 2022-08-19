@@ -15,11 +15,10 @@ import VerseComponent from "../components/verse.component"
 import ContentComponent from "../components/content.component"
 import LoaderComponent from "../components/loader.component"
 
-const params = new URLSearchParams(location.search)
-const slug: any = params.get("slug")
-const endpoint = `${config.apiEndPoint}blog/posts/${slug}`
+const endpoint: string = `${config.apiEndPoint}blog/posts/`
 
 interface AppProps {
+  location: any
   data: any
 }
 
@@ -39,7 +38,11 @@ class PostsPage extends React.Component<AppProps, AppState> {
   }
 
   componentDidMount() {
-    fetch(endpoint, { method: "GET" })
+    const { location } = this.props
+    const params: any = new URLSearchParams(location.search)
+    const slug: any = params.get("slug")
+
+    fetch(`${endpoint}${slug}`, { method: "GET" })
       .then((response) => response.json())
       .then((data) => this.setState({ loading: false, fetchedData: data }))
       .catch((err) => alert(err))
