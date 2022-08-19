@@ -15,7 +15,7 @@ import FeaturedPostComponent from "../components/featured-post.component"
 import FolderListComponent from "../components/folder-list.component"
 import LoaderComponent from "../components/loader.component"
 
-const endpoint = `${config.apiEndPoint}blog/archive-folder`
+const endpoint: string = `${config.apiEndPoint}blog/archive-folder`
 
 interface AppProps {
   data: any
@@ -38,9 +38,9 @@ class ArchiveFolderPage extends React.Component<AppProps, AppState> {
 
   componentDidMount() {
     fetch(endpoint, { method: "GET" })
-      .then((response) => response.json())
-      .then((data) => this.setState({ loading: false, fetchedData: data }))
-      .catch((err) => alert(err))
+      .then((response: any) => response.json())
+      .then((data: any) => this.setState({ loading: false, fetchedData: data }))
+      .catch((err: any) => alert(err))
   }
 
   render() {
@@ -58,6 +58,10 @@ class ArchiveFolderPage extends React.Component<AppProps, AppState> {
     const { loading, fetchedData } = this.state
     let content: any = (
       <main className="main-content">
+        <HeroComponent
+          title={page.title}
+          subtitle={page.subtitle}
+        />
         <LoaderComponent />
       </main>
     )
@@ -75,12 +79,10 @@ class ArchiveFolderPage extends React.Component<AppProps, AppState> {
           <HeroComponent
             title={page.title}
             subtitle={page.subtitle}
-            isIndex={true}
           />
           <FeaturedPostComponent
             post={featured}
             showSummary={true}
-            isIndex={true}
           />
           <FolderListComponent folders={folders} />
         </main>

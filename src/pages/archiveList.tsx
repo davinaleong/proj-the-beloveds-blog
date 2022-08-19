@@ -62,9 +62,9 @@ class ArchiveListPage extends React.Component<AppProps, AppState> {
 
     const archiveEndpoint = `${endpoint}/${folderParam}?page=${pageParam}`
     fetch(archiveEndpoint, { method: "GET" })
-      .then(response => response.json())
-      .then(data => this.setState({ loading: false, fetchedData: data }))
-      .catch(err => alert(err))
+      .then((response: any) => response.json())
+      .then((data: any) => this.setState({ loading: false, fetchedData: data }))
+      .catch((err: any) => alert(err))
   }
 
   render() {
@@ -87,6 +87,7 @@ class ArchiveListPage extends React.Component<AppProps, AppState> {
     }
     let content: any = (
       <main className="main-content">
+        <HeroComponent title={ page.title } subtitle={ page.subtitle } />
         <LoaderComponent />
       </main>
     )
@@ -107,8 +108,8 @@ class ArchiveListPage extends React.Component<AppProps, AppState> {
       const { current_page, last_page } = posts
       content = (
         <main className="main-content">
-          <HeroComponent title={ page.title } subtitle={ page.subtitle } isIndex={ true } />
-          <FeaturedPostComponent post={ featured } showSummary={ true } isIndex={ true } />
+          <HeroComponent title={ page.title } subtitle={ page.subtitle } />
+          <FeaturedPostComponent post={ featured } showSummary={ true } />
           { postListComponent }
           <PaginationComponent current={ current_page } last={ last_page } folder={ folder } fetchData={ this.fetchData }
           />
