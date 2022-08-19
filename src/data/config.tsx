@@ -10,9 +10,9 @@ const config = {
         }
     },
     perPage: 20,
-    graphqlEndPoint: `http://davinas-cms.herokuapp.com/graphql`,
-    cmsEndPoint: `http://davinas-cms.herokuapp.com/`,
-    apiEndPoint: `http://davinas-cms.herokuapp.com/api/`
+    graphqlEndPoint: `https://davinas-cms.herokuapp.com/graphql`,
+    cmsEndPoint: `https://davinas-cms.herokuapp.com/`,
+    apiEndPoint: `https://davinas-cms.herokuapp.com/api/`
 }
 
 export default config
