@@ -14,7 +14,7 @@ import HeroComponent from "../components/hero.component"
 import ContentComponent from "../components/content.component"
 import LoaderComponent from "../components/loader.component"
 
-const endpoint = `${config.apiEndPoint}blog/contact`
+const endpoint: string = `${config.apiEndPoint}blog/contact`
 
 interface AppProps {
   data: any
@@ -36,9 +36,9 @@ class ContactPage extends React.Component<AppProps, AppState> {
 
   componentDidMount() {
     fetch(endpoint, { method: "GET" })
-      .then((response) => response.json())
-      .then((data) => this.setState({ loading: false, fetchedData: data }))
-      .catch((err) => alert(err))
+      .then((response: any) => response.json())
+      .then((data: any) => this.setState({ loading: false, fetchedData: data }))
+      .catch((err: any) => alert(err))
   }
 
   render() {
@@ -56,6 +56,7 @@ class ContactPage extends React.Component<AppProps, AppState> {
     const { loading, fetchedData } = this.state
     let content = (
       <main className="main-content">
+        <HeroComponent title={page.title} />
         <LoaderComponent />
       </main>
     )

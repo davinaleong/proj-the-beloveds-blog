@@ -43,9 +43,9 @@ class PostsPage extends React.Component<AppProps, AppState> {
     const slug: any = params.get("slug")
 
     fetch(`${endpoint}${slug}`, { method: "GET" })
-      .then((response) => response.json())
-      .then((data) => this.setState({ loading: false, fetchedData: data }))
-      .catch((err) => alert(err))
+      .then((response: any) => response.json())
+      .then((data: any) => this.setState({ loading: false, fetchedData: data }))
+      .catch((err: any) => alert(err))
   }
 
   render() {
@@ -61,6 +61,7 @@ class PostsPage extends React.Component<AppProps, AppState> {
     const { loading, fetchedData } = this.state
     let content = (
       <main className="main-content">
+        <HeroComponent title="Post" />
         <LoaderComponent />
       </main>
     )

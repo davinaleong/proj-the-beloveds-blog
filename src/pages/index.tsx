@@ -16,7 +16,7 @@ import PostListComponent from "../components/post-list.component"
 
 import LoaderComponent from "../components/loader.component"
 
-const endpoint = `${config.apiEndPoint}blog`
+const endpoint: string = `${config.apiEndPoint}blog`
 
 interface AppProps {
   data: any
@@ -39,9 +39,9 @@ class IndexPage extends React.Component<AppProps, AppState> {
 
   componentDidMount() {
     fetch(endpoint, { method: "GET" })
-      .then((response) => response.json())
-      .then((data) => this.setState({ loading: false, fetchedData: data }))
-      .catch((err) => alert(err))
+      .then((response: any) => response.json())
+      .then((data: any) => this.setState({ loading: false, fetchedData: data }))
+      .catch((err: any) => alert(err))
   }
 
   render() {
@@ -59,6 +59,11 @@ class IndexPage extends React.Component<AppProps, AppState> {
     const { loading, fetchedData } = this.state
     let content: any = (
       <main className="main-content">
+        <HeroComponent
+            title={page.title}
+            subtitle={page.subtitle}
+            isIndex={true}
+          />
         <LoaderComponent />
       </main>
     )
