@@ -17,13 +17,13 @@ Variables
 
 /// Colors
 $colors: (
-  "black": #000,
-  "white": #fff,
-  "primary": #127fb0,
-  "primary-dark": #054663,
-  "primary-light": #c1e2f1,
-  "accent-1": #b00019,
-  "accent-2": #b0a912,
+  "black": hsl(0, 0%, 0%),
+  "white": hsl(0, 0%, 100%),
+  "primary": hsl(199, 81%, 38%),
+  "primary-dark": hsl(199, 90%, 20%),
+  "primary-light": hsl(199, 63%, 85%),
+  "accent-1": hsl(351, 100%, 35%),
+  "accent-2": hsl(57, 81%, 38%),
   "transparent": transparent,
 );
 
@@ -52,7 +52,7 @@ $sizes: (
   "site-title": clamp(2.25rem, 2rem + 1vw, 7rem),
   "hero-title": clamp(2.25rem, 1rem + 1vw, 5rem),
   "section-title": clamp(0.8rem, 0.5rem + 1vw, 1.2rem),
-  "post-title": clamp(1.5rem, 0.5rem + 1vw, 5rem),
+  "post-title": clamp(2rem, 0.5rem + 1vw, 5rem),
   "small": clamp(0.75rem, 0.5rem + 1vw, 1rem),
   "folder": clamp(1.5rem, 0.5rem + 1vw, 3rem),
 );
@@ -143,7 +143,7 @@ $text-decorations: (
 }
 
 /// Spacers
-$unit: 1rem;
+$unit: 1em;
 $spacers: (
   "0": $unit * 0,
   "1": $unit * 0.25,
