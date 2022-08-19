@@ -1,7 +1,7 @@
 import "../sass/main.scss"
 
 import * as React from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 
 // config
 import config from "../data/config"
@@ -19,68 +19,103 @@ const params = new URLSearchParams(location.search)
 const slug: any = params.get("slug")
 const endpoint = `${config.apiEndPoint}blog/posts/${slug}`
 
-type AppProp = {
-    data: any
+interface AppProps {
+  data: any
+}
+
+interface AppState {
+  loading: boolean
+  fetchedData: any
 }
 
 // markup
-class PostsPage extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        loading: true,
-        data: {}
-      };
-    }
-  
-    componentDidMount() {
-      fetch(endpoint, { method: "GET" })
-        .then(response => response.json())
-        .then(data => this.setState({ loading: false, data: data }))
-        .catch(err => alert(err))
-    }
-  
-    render() {
-      const { loading, data } = this.state
-      let content = (
-        <main className="main-content">
-          <LoaderComponent />
-        </main>
-      )
-      let bgColor = "bg-primary-light"
-      let meta: Object = {}
-      let latestPost: Object = {}
-  
-      if (!loading) {
-        const { latest, posts } = data
-        latestPost = latest[0]
-        if (posts && posts.length > 0) {
-          const post = posts[0]
-          meta = {
-            title: `${config.meta.default.title} - ${post.meta_title}`,
-            description: post.meta_description
-          }
-          let verseElement = null
-          if (post.subtitle) {
-            bgColor = "bg-accent-1"
-            verseElement = <VerseComponent text={ post.subtitle } />
-          }
-          content = (
-            <main className="main-content">
-              <HeroComponent title={ post.title } />
-              { verseElement }
-              <ContentComponent text={ post.text } />
-            </main>
-          )
-        }
-      }
-  
-      return (
-        <MainLayout bgColor={ bgColor } loading={ loading } meta={ meta } latestPost={ latestPost }>
-          { content }
-        </MainLayout>
-      )
+class PostsPage extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props)
+    this.state = {
+      loading: true,
+      fetchedData: {},
     }
   }
-  
-  export default PostsPage
+
+  componentDidMount() {
+    fetch(endpoint, { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => this.setState({ loading: false, fetchedData: data }))
+      .catch((err) => alert(err))
+  }
+
+  render() {
+    const { data } = this.props
+    let meta: any = {}
+    if (data.cms.pages.data.length > 0) {
+      const page = data.cms.pages.data[0]
+      meta = {
+        description: page.meta_description,
+      }
+    }
+
+    const { loading, fetchedData } = this.state
+    let content = (
+      <main className="main-content">
+        <LoaderComponent />
+      </main>
+    )
+    let bgColor = "bg-primary-light"
+    let latestPost: Object = {}
+
+    if (!loading) {
+      const { latest, posts } = fetchedData
+      latestPost = latest[0]
+      if (posts && posts.length > 0) {
+        const post = posts[0]
+        meta = {
+          title: `${config.meta.default.title} - ${post.meta_title}`,
+          description: post.meta_description,
+        }
+        let verseElement = null
+        if (post.subtitle) {
+          bgColor = "bg-accent-1"
+          verseElement = <VerseComponent text={post.subtitle} />
+        }
+        content = (
+          <main className="main-content">
+            <HeroComponent title={post.title} />
+            {verseElement}
+            <ContentComponent text={post.text} />
+          </main>
+        )
+      }
+    }
+
+    return (
+      <MainLayout
+        bgColor={bgColor}
+        loading={loading}
+        meta={meta}
+        latestPost={latestPost}
+      >
+        {content}
+      </MainLayout>
+    )
+  }
+}
+
+export const query = graphql`
+  query {
+    cms {
+      pages(name: "Index") {
+        data {
+          title
+          text
+          subtitle
+          name
+          meta_title
+          meta_description
+        }
+      }
+    }
+  }
+`
+
+export default PostsPage
