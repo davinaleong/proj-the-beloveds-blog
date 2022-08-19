@@ -19,6 +19,7 @@ import LoaderComponent from "../components/loader.component"
 const endpoint = `${config.apiEndPoint}blog/archive-list`
 
 interface AppProps {
+  location: any
   data: any
 }
 
@@ -39,16 +40,17 @@ class ArchiveListPage extends React.Component<AppProps, AppState> {
   }
 
   componentDidMount() {
+    const { location } = this.props
     const params = new URLSearchParams(location.search)
     let pageParam: any = params.get("page")
     if (!pageParam) {
-      pageParam = 2022
+      pageParam = 1
     }
 
-    this.fetchData(pageParam)
+    this.fetchData(location, pageParam)
   }
 
-  fetchData = (pageParam: Number = 1) => {
+  fetchData = (location: any, pageParam: Number = 1) => {
     console.log("Fetch achive list data.")
     this.setState({ loading: true })
 
