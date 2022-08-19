@@ -68,7 +68,7 @@ class ArchiveListPage extends React.Component<AppProps, AppState> {
   }
 
   render() {
-    const { data } = this.props
+    const { location, data } = this.props
     let meta: any = {}
     let page: any = {}
 
