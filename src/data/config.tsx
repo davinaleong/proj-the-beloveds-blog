@@ -4,7 +4,7 @@ const config = {
         author: "Davina Leong",
         siteUrl: "https://www.the-beloveds-blog.com/",
         default: {
-            title: "The Beloved's Blog",
+            title: "The Beloveds Blog",
             description: "Davina Leong's Christian Blog",
             keywords: "Davina, Leong, Davina Leong, Blog, Christian, Testimonies, Revelations"
         }
