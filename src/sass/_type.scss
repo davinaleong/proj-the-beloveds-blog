@@ -37,7 +37,6 @@ a {
   font-size: size("section-title");
   font-weight: weight("light");
   text-transform: text-transform("uppercase");
-  margin-bottom: spacer("2");
 }
 
 .post-title {
@@ -48,7 +47,7 @@ a {
 
 .post-date {
   font-size: size("small");
-  margin-bottom: spacer("2");
+  margin-bottom: spacer("3");
 }
 
 .name {

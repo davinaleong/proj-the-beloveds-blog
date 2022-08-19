@@ -60,8 +60,8 @@ main {
 }
 
 .post-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 100%;
   gap: spacer("4");
   cursor: pointer;
   transition: opacity 0.3 ease-in-out;
@@ -69,14 +69,6 @@ main {
   // &:active {
   //   opacity: 0.7;
   // }
-
-  & > .post-item {
-    width: 100%;
-  }
-
-  & > .btn-container {
-    width: 100%;
-  }
 }
 
 .post-item {
@@ -109,13 +101,9 @@ main {
 }
 
 .folder-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: spacer("4");
-
-  & > * {
-    width: calc(50% - spacer("4"));
-  }
 }
 
 .folder-item {
@@ -189,23 +177,27 @@ main {
 }
 
 @media screen and (min-width: breakpoint("tablet")) {
-  .post-list > .post-item {
-    width: calc(50% - spacer("4"));
+  .post-list {
+    grid-template-columns: repeat(2, 1fr);
+
+    & > .btn-container {
+      grid-column: 1 / span 2;
+    }
   }
 
-  .folder-list > * {
-    width: calc(33% - spacer("4"));
+  .folder-list {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media screen and (min-width: breakpoint("desktop")) {
-  .folder-list > * {
-    width: calc(25% - spacer("4"));
+  .folder-list {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media screen and (min-width: breakpoint("desktop-l")) {
-  .folder-list > * {
-    width: calc(20% - spacer("4"));
+  .folder-list {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
