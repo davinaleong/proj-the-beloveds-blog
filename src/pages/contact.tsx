@@ -16,57 +16,93 @@ import LoaderComponent from "../components/loader.component"
 
 const endpoint = `${config.apiEndPoint}blog/contact`
 
-type AppProp = {
-    data: any
+interface AppProps {
+  data: any
 }
 
+interface AppState {
+  loading: boolean
+  fetchedData: any
+}
 // markup
-class ContactPage extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        loading: true,
-        data: {}
-      };
-    }
-  
-    componentDidMount() {
-      fetch(endpoint, { method: "GET" })
-        .then(response => response.json())
-        .then(data => this.setState({ loading: false, data: data }))
-        .catch(err => alert(err))
-    }
-  
-    render() {
-      const { loading, data } = this.state
-      let content = (
-        <main className="main-content">
-          <LoaderComponent />
-        </main>
-      )
-      let meta: Object = {}
-      let latestPost: Object = {}
-  
-      if (!loading) {
-        const { page, latest } = data
-        latestPost = latest[0]
-        meta = {
-          description: page.meta_description
-        }
-        content = (
-          <main className="main-content">
-                <HeroComponent title={ page.title } />
-                <ContentComponent text={ page.text } />
-          </main>
-        )
-      }
-  
-      return (
-        <MainLayout bgColor="bg-primary-light" loading={ loading } meta={ meta } latestPost={ latestPost }>
-          { content }
-        </MainLayout>
-      )
+class ContactPage extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props)
+    this.state = {
+      loading: true,
+      fetchedData: {},
     }
   }
-  
-  export default ContactPage
+
+  componentDidMount() {
+    fetch(endpoint, { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => this.setState({ loading: false, fetchedData: data }))
+      .catch((err) => alert(err))
+  }
+
+  render() {
+    const { data } = this.props
+    let meta: any = {}
+    let page: any = {}
+
+    if (data.cms.pages.data.length > 0) {
+      page = data.cms.pages.data[0]
+      meta = {
+        description: page.meta_description,
+      }
+    }
+
+    const { loading, fetchedData } = this.state
+    let content = (
+      <main className="main-content">
+        <LoaderComponent />
+      </main>
+    )
+    let latestPost: Object = {}
+
+    if (!loading) {
+      const { latest } = fetchedData
+      latestPost = latest[0]
+      meta = {
+        description: page.meta_description,
+      }
+      content = (
+        <main className="main-content">
+          <HeroComponent title={page.title} />
+          <ContentComponent text={page.text} />
+        </main>
+      )
+    }
+
+    return (
+      <MainLayout
+        bgColor="bg-primary-light"
+        loading={loading}
+        meta={meta}
+        latestPost={latestPost}
+      >
+        {content}
+      </MainLayout>
+    )
+  }
+}
+
+export const query = graphql`
+  query {
+    cms {
+      pages(name: "Contact") {
+        data {
+          title
+          text
+          subtitle
+          name
+          meta_title
+          meta_description
+        }
+      }
+    }
+  }
+`
+
+export default ContactPage
