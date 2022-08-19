@@ -1,8 +1,7 @@
 import "../sass/main.scss"
 
 import * as React from "react"
-import { useState } from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 
 // config
 import config from "../data/config"
@@ -17,19 +16,25 @@ import PostListComponent from "../components/post-list.component"
 import PaginationComponent from "../components/pagination.component"
 import LoaderComponent from "../components/loader.component"
 
-// helpers
-import ArchiveListUrlHelper from "../helpers/archive-list-url.helper"
-
 const endpoint = `${config.apiEndPoint}blog/archive-list`
 
+interface AppProps {
+  data: any
+}
+
+interface AppState {
+  loading: boolean
+  fetchedData: any
+}
+
 // markup
-class ArchiveListPage extends React.Component {
-  constructor(props) {
+class ArchiveListPage extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
     super(props);
 
     this.state = {
       loading: true,
-      data: {},
+      fetchedData: {},
     };
   }
 
@@ -56,12 +61,23 @@ class ArchiveListPage extends React.Component {
     const archiveEndpoint = `${endpoint}/${folderParam}?page=${pageParam}`
     fetch(archiveEndpoint, { method: "GET" })
       .then(response => response.json())
-      .then(data => this.setState({ loading: false, data: data }))
+      .then(data => this.setState({ loading: false, fetchedData: data }))
       .catch(err => alert(err))
   }
 
   render() {
-    const { loading, page, data } = this.state
+    const { data } = this.props
+    let meta: any = {}
+    let page: any = {}
+
+    if (data.cms.pages.data.length > 0) {
+      page = data.cms.pages.data[0]
+      meta = {
+        description: page.meta_description
+      }
+    }
+
+    const { loading, fetchedData } = this.state
     const params = new URLSearchParams(location.search)
     let folder: any = params.get("folder")
     if (!folder) {
@@ -72,11 +88,10 @@ class ArchiveListPage extends React.Component {
         <LoaderComponent />
       </main>
     )
-    let meta: Object = {}
     let latestPost: Object = {}
 
     if (!loading) {
-      const { page, featured, latest, posts } = data
+      const { page, featured, latest, posts } = fetchedData
       latestPost = latest[0]
       meta = {
         description: page.meta_description
@@ -106,5 +121,22 @@ class ArchiveListPage extends React.Component {
     )
   }
 }
+
+export const query = graphql`
+  query {
+    cms {
+      pages(name: "Archive") {
+        data {
+          title
+          text
+          subtitle
+          name
+          meta_title
+          meta_description
+        }
+      }
+    }
+  }
+`
 
 export default ArchiveListPage

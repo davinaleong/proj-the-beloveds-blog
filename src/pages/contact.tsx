@@ -1,7 +1,7 @@
 import "../sass/main.scss"
 
 import * as React from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 
 // config
 import config from "../data/config"

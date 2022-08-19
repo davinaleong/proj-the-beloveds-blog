@@ -15,60 +15,106 @@ import FeaturedPostComponent from "../components/featured-post.component"
 import FolderListComponent from "../components/folder-list.component"
 import LoaderComponent from "../components/loader.component"
 
-// helpers
-import ArchiveListUrlHelper from "../helpers/archive-list-url.helper"
-
 const endpoint = `${config.apiEndPoint}blog/archive-folder`
 
+interface AppProps {
+  data: any
+}
+
+interface AppState {
+  loading: boolean
+  fetchedData: any
+}
+
 // markup
-class ArchiveFolderPage extends React.Component {
-  constructor(props) {
-    super(props);
+class ArchiveFolderPage extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props)
     this.state = {
       loading: true,
-      data: {},
-    };
+      fetchedData: {},
+    }
   }
 
   componentDidMount() {
     fetch(endpoint, { method: "GET" })
-      .then(response => response.json())
-      .then(data => this.setState({ loading: false, data: data }))
-      .catch(err => alert(err))
+      .then((response) => response.json())
+      .then((data) => this.setState({ loading: false, fetchedData: data }))
+      .catch((err) => alert(err))
   }
 
   render() {
-    const { loading, data } = this.state
+    const { data } = this.props
+    let meta: any = {}
+    let page: any = {}
+
+    if (data.cms.pages.data.length > 0) {
+      page = data.cms.pages.data[0]
+      meta = {
+        description: page.meta_description,
+      }
+    }
+
+    const { loading, fetchedData } = this.state
     let content: any = (
       <main className="main-content">
         <LoaderComponent />
       </main>
     )
-    let meta: Object = {}
     let latestPost: Object = {}
 
     if (!loading) {
-      const { page, featured, latest, folders } = data
+      const { page, featured, latest, folders } = fetchedData
       latestPost = latest[0]
       meta = {
-        description: page.meta_description
+        description: page.meta_description,
       }
-      
+
       content = (
         <main className="main-content">
-          <HeroComponent title={ page.title } subtitle={ page.subtitle } isIndex={ true } />
-          <FeaturedPostComponent post={ featured } showSummary={ true } isIndex={ true } />
-          <FolderListComponent folders={ folders } />
+          <HeroComponent
+            title={page.title}
+            subtitle={page.subtitle}
+            isIndex={true}
+          />
+          <FeaturedPostComponent
+            post={featured}
+            showSummary={true}
+            isIndex={true}
+          />
+          <FolderListComponent folders={folders} />
         </main>
       )
     }
 
     return (
-      <MainLayout bgColor="bg-accent-1" loading={ loading } meta={ meta } latestPost={ latestPost }>
-        { content }
+      <MainLayout
+        bgColor="bg-accent-1"
+        loading={loading}
+        meta={meta}
+        latestPost={latestPost}
+      >
+        {content}
       </MainLayout>
     )
   }
 }
+
+export const query = graphql`
+  query {
+    cms {
+      pages(name: "Archive") {
+        data {
+          title
+          text
+          subtitle
+          name
+          meta_title
+          meta_description
+        }
+      }
+    }
+  }
+`
 
 export default ArchiveFolderPage
