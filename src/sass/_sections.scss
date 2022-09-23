@@ -201,3 +201,11 @@ main {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
+blockquote {
+  border-left: 3px solid color("primary");
+  padding-top: spacer("1");
+  padding-left: spacer("2");
+  margin-left: spacer("1");
+  margin-bottom: spacer("3");
+}
